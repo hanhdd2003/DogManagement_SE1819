@@ -1,24 +1,25 @@
 package data.history;
 
 public class History {
+
+    private int type;
     private String idCus;
     private String idDog;
     private String idEmp; // thêm số tiền giao dịch
-    private double price;    
+    private double price;
     private String currentTime;
 
     public History() {
     }
 
-    
-    public History(String idCus, String idDog, String idEmp, double price, String currentTime) {
+    public History(int type, String idCus, String idDog, String idEmp, double price, String currentTime) {
+        this.type = type;
         this.idCus = idCus;
         this.idDog = idDog;
         this.idEmp = idEmp;
         this.price = price;
         this.currentTime = currentTime;
     }
-
 
     public double getPrice() {
         return price;
@@ -48,19 +49,25 @@ public class History {
         return idEmp;
     }
 
-
-
     public void setIdEmp(String idEmp) {
         this.idEmp = idEmp;
     }
 
+    public String getType() {
+        if (this.type == 1) {
+            return "SALE DOG";
+        } else {
+            return "SEND DOG";
+        }
+    }
+
     public void display() {
-        System.out.printf(" %10s %12s %8s %12s %15s\n", price, idCus, idDog, idEmp, currentTime);
+        System.out.printf("%12s %10s %12s %8s %12s %15s\n", this.getType(), price, idCus, idDog, idEmp, currentTime);
     }
 
     @Override
     public String toString() {
-        return this.price +" , " + this.idCus + " , " + this.idDog + " , " + this.idEmp +" , " + this.currentTime;
+        return this.type + " , " + this.price + " , " + this.idCus + " , " + this.idDog + " , " + this.idEmp + " , " + this.currentTime;
     }
 
 }

@@ -2,7 +2,6 @@ package data.Sevice;
 
 import data.dog.*;
 import data.history.History;
-import data.history.HistorySend;
 import data.person.Customer;
 import data.person.Employee;
 import java.io.*;
@@ -81,7 +80,7 @@ public class Service {
                         LocalDateTime now = LocalDateTime.now();
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                         String formattedDateTime = now.format(formatter);
-                        History his1 = new History(idCus, idDog, idEmp, searchDogSale(idDog, dogSale).getPrice(), formattedDateTime);
+                        History his1 = new History(1,idCus, idDog, idEmp, searchDogSale(idDog, dogSale).getPrice(), formattedDateTime);
                         his.add(his1);
                         //tang bonus cho nhan vien
                         if (this.seachEmp(idEmp, emp) != null && this.searchDogSale(idDog, dogSale) != null) {
@@ -117,26 +116,26 @@ public class Service {
                 System.out.print("Input customer Id: ");
                 String idCus = tool.iString();
                 //kiem tra id hop le
-                if (searchCus(idCus, cus) == null) {
+                if (this.searchCus(idCus, cus) == null) {
                     System.out.println("Customer ID not exit !!");
                     Customer cusTemp = this.inputCustomer();
                     cus.add(cusTemp);
                 }
                 // nhap cho
+                this.displayDogSend();
                 DogForSend temp = this.inputDogSend();
                 this.displayEmp();
                 System.out.print("Input employee Id: ");
                 String idEmp = tool.iString();
 
-                if (seachEmp(idEmp, emp) == null) {
+                if (this.seachEmp(idEmp, emp) == null) {
                     System.out.println("Employee ID not exit !!");
                 } else {
                     //udate data
-
                     LocalDateTime now = LocalDateTime.now();
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                     String formattedDateTime = now.format(formatter);
-                    HistorySend tempHis = new HistorySend(temp.getTimeSend(), temp.getTimePickUp(), idCus, temp.getDogID(), idEmp, temp.getPrice(), formattedDateTime);
+                    History tempHis = new History(2, idCus, idEmp, idEmp, temp.getPrice(),formattedDateTime );
                     dogSend.add(temp);
                     his.add(tempHis);
 
@@ -157,27 +156,21 @@ public class Service {
     //-------------------------------------pick up dog ----------------------------
 
     public void pickUpDog() {
-        try {
-            this.loadData();
-
-            // ghi tam ra day
-            ArrayList<DogForSend> arrDog = this.getDogForSend();
-            ArrayList<Customer> arrCus = this.getCustomer();
-            ArrayList<Employee> arrEmp = this.getEmployee();
-            ArrayList<History> arrHis = this.getHistory();
+        try {           
             boolean a = true;
             while (a) {
+                this.displayCus();
                 System.out.print("Input customer Id: ");
                 String idCus = tool.iString();
                 //kiem tra id hop le
-                if (searchCus(idCus, arrCus) == null) {
+                if (this.searchCus(idCus, cus) == null) {
                     System.out.println("Customer ID not exit !!");
                 } else {
-
+                    this.displayEmp();
                     System.out.print("Input employee Id: ");
                     String idEmp = tool.iString();
 
-                    if (seachEmp(idEmp, arrEmp) == null) {
+                    if (this.seachEmp(idEmp, emp) == null) {
                         System.out.println("Employee ID not exit !!");
                     } else {
                         // check id cua cus co trung voi id nao cua history ko
@@ -190,19 +183,19 @@ public class Service {
                                     "COLOR", "HEALTH STATUS", "VACCINE STATUS",
                                     "TIME PICK UP", "TIME SEND", "PRICE");
                             //dùng id cus tìm history rồi từ history tìm id dog ròi disphay id dog
-                            this.searchDogSend(seachHis(idCus).getIdDog(), arrDog).display();
+                            this.searchDogSend(seachHis(idCus).getIdDog(), dogSend).display();
 
-                            System.out.println("you have to pay" + searchDogSend(seachHis(idCus).getIdDog(), arrDog).getPrice());
+                            System.out.println("you have to pay" + this.searchDogSend(seachHis(idCus).getIdDog(), dogSend).getPrice());
 
                             //nhan cho xong thi xoa cho khoi danh sach
-                            arrDog.remove(searchDogSend(seachHis(idCus).getIdDog(), arrDog));
+                            dogSale.remove(searchDogSend(seachHis(idCus).getIdDog(), dogSend));
 
                             //update lai thong tin
                             //udate data trong file
-                            this.saveCustomer(arrCus);
-                            this.saveDogSend(arrDog);
-                            this.saveEmployee(arrEmp);
-                            this.saveHistory(arrHis);
+                            this.saveCustomer(cus);
+                            this.saveDogSend(dogSend);
+                            this.saveEmployee(emp);
+                            this.saveHistory(his);
                             a = false;
                         }
                     }
@@ -838,8 +831,8 @@ public class Service {
     public void displayHistory() {
         //("%10s %10s %12s %8s %12s %15s\n", idHis, price, idCus, idDog, idEmp, currentTime)
         System.out.println("List History: ");
-        System.out.printf("%10s %10s %12s %8s %12s %15s \n",
-                "HISTORY ID", "PRICE", "CUSTOMER ID", "DOG ID", "EMPLOYEE ID", "TIME");
+        System.out.printf("%12s %10s %12s %8s %12s %15s \n",
+                "HISTORY TYPE", "PRICE", "CUSTOMER ID", "DOG ID", "EMPLOYEE ID", "TIME");
         for (History his1 : his) {
             his1.display();
         }
@@ -960,7 +953,7 @@ public class Service {
                 String healthyStatus = parts[9];
                 String vaccineStatus = parts[10];
                 double price = Double.parseDouble(parts[11]);
-                // them customer id
+                //CUS1 , 14-04-2023 , 15-5-2023 , HANH , DOG09 , 12 , DUC , DUC , DO , OKE , 3 MUI , 50000.0
                 DogForSend dg = new DogForSend(customerID, timeSend, timePickUp, name, dogID, age,
                         gender, dogBreed, color, healthyStatus, vaccineStatus, price);
                 if (dogSend == null) {
@@ -982,13 +975,14 @@ public class Service {
             String line;
             while (((line = reader.readLine()) != null)) {
                 String[] parts = line.split(" , ");
-                double price = Double.parseDouble(parts[0]);
-                String idCus = parts[1];
+                
+                int type = Integer.parseInt(parts[0]);
+                double price = Double.parseDouble(parts[1]);
+                String idCus = parts[2];
                 String idDog = parts[2];
                 String idEmp = parts[3];
                 String currentTime = parts[4];
-                //String idHis, double price, String idCus, String idDog, String idEmp, LocalDateTime currentTime
-                History history = new History(idCus, idDog, idEmp, price, currentTime);
+                History history = new History(type ,idCus, idDog, idEmp, price, currentTime);
 
                 if (this.his == null) {
                     this.his = new ArrayList<>();

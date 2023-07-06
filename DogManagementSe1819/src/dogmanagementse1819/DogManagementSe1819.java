@@ -9,14 +9,12 @@ public class DogManagementSe1819 {
 
     public static void main(String[] args) {
 
-        Service sr = new Service();
-        sr.loadData();
-        sr.sendDog();
+      
         
         
         
 //------------------------------xử lý phần đăng nhập--------------------------------
- /*       AccountManagement.a();
+       AccountManagement.a();
         Account accLogin = AccountManagement.getAccountLogin();
         Menu mn = new Menu();
         if (accLogin != null) {
@@ -27,7 +25,7 @@ public class DogManagementSe1819 {
             } else if (accLogin.getCodeUser().equals("03")) {
                 mn.menuCustomer();
             }
-        }*/
+        }
 
     }
 
