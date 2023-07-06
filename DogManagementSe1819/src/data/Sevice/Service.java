@@ -80,7 +80,7 @@ public class Service {
                         LocalDateTime now = LocalDateTime.now();
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                         String formattedDateTime = now.format(formatter);
-                        History his1 = new History(1,idCus, idDog, idEmp, searchDogSale(idDog, dogSale).getPrice(), formattedDateTime);
+                        History his1 = new History(1, idCus, idDog, idEmp, searchDogSale(idDog, dogSale).getPrice(), formattedDateTime);
                         his.add(his1);
                         //tang bonus cho nhan vien
                         if (this.seachEmp(idEmp, emp) != null && this.searchDogSale(idDog, dogSale) != null) {
@@ -122,32 +122,62 @@ public class Service {
                     cus.add(cusTemp);
                 }
                 // nhap cho
-                this.displayDogSend();
-                DogForSend temp = this.inputDogSend();
-                this.displayEmp();
-                System.out.print("Input employee Id: ");
-                String idEmp = tool.iString();
+                System.out.print("Input ID Dog Send: ");
+                String idSend = tool.iString();
+                if (!this.checkIdDogSend(dogSend, idSend)) {
+                    System.out.print("Input name dog: ");
+                    String name = tool.iString();
 
-                if (this.seachEmp(idEmp, emp) == null) {
-                    System.out.println("Employee ID not exit !!");
+                    System.out.print("Time send: ");
+                    String timeSend = tool.iString();
+
+                    System.out.print("Time pick up: ");
+                    String timePickUp = tool.iString();
+
+                    System.out.print("Input age: ");
+                    int age = tool.iInt();
+
+                    System.out.print("Input gender: ");
+                    String gender = tool.iString();
+
+                    System.out.print("Input dog breed: ");
+                    String dogBreed = tool.iString();
+
+                    System.out.print("Input color: ");
+                    String color = tool.iString();
+
+                    System.out.print("Input heath status: ");
+                    String healthyStatus = tool.iString();
+
+                    System.out.print("Input vaccine status: ");
+                    String vaccineStatus = tool.iString();
+
+                    System.out.print("Input Price: ");
+                    double price = tool.iDouble();
+
+                    DogForSend sendTemp = new DogForSend(idCus, timeSend, timePickUp, name, idSend, age, gender, dogBreed, color, healthyStatus, vaccineStatus, price);
+                    dogSend.add(sendTemp);
+                    this.displayEmp();
+                    System.out.println("Input ID Employee: ");
+                    String idEmp = tool.iString();
+                    if (this.checkIdEmp(emp, idEmp)) {
+                        LocalDateTime now = LocalDateTime.now();
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                        String formattedDateTime = now.format(formatter);
+                        History hisTemp = new History(2, idCus, idSend, idEmp, price, formattedDateTime);
+                        his.add(hisTemp);
+                        System.out.println("Send successfully !");
+                        a = false;
+                    } else {
+                        System.out.println("Employee not exist !");
+                    }
                 } else {
-                    //udate data
-                    LocalDateTime now = LocalDateTime.now();
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-                    String formattedDateTime = now.format(formatter);
-                    History tempHis = new History(2, idCus, idEmp, idEmp, temp.getPrice(),formattedDateTime );
-                    dogSend.add(temp);
-                    his.add(tempHis);
-
-                    //udate data trong file
-                    this.saveCustomer(cus);
-                    this.saveDogSend(dogSend);
-                    this.saveEmployee(emp);
-                    this.saveHistory(his);
-                    a = false;
+                    System.out.println("Dog Send already exist !");
                 }
-
             }
+            this.saveCustomer(cus);
+            this.saveDogSend(dogSend);
+            this.saveHistory(his);
         } catch (Exception e) {
             System.err.println("co loi phan SendDog()");
         }
@@ -156,51 +186,31 @@ public class Service {
     //-------------------------------------pick up dog ----------------------------
 
     public void pickUpDog() {
-        try {           
+        try {
             boolean a = true;
             while (a) {
-                this.displayCus();
+                this.displayDogSend();
                 System.out.print("Input customer Id: ");
                 String idCus = tool.iString();
                 //kiem tra id hop le
                 if (this.searchCus(idCus, cus) == null) {
-                    System.out.println("Customer ID not exit !!");
+                    System.out.print("Customer ID not exit !!");
                 } else {
-                    this.displayEmp();
-                    System.out.print("Input employee Id: ");
-                    String idEmp = tool.iString();
-
-                    if (this.seachEmp(idEmp, emp) == null) {
-                        System.out.println("Employee ID not exit !!");
-                    } else {
-                        // check id cua cus co trung voi id nao cua history ko
-                        if (this.seachHis(idCus) == null) {
-                            System.out.println("Your deal not exit !!");
-                        } else {
-                            System.out.println("Here is your dog: ");
-                            System.out.printf("%11s %8s %10s %15s %13s %11s %15s %17s %17s %13s %10s\t\n", "CUSTOMER ID",
-                                    "DOG ID", "NAME", "GENDER", "DOG BREED",
-                                    "COLOR", "HEALTH STATUS", "VACCINE STATUS",
-                                    "TIME PICK UP", "TIME SEND", "PRICE");
-                            //dùng id cus tìm history rồi từ history tìm id dog ròi disphay id dog
-                            this.searchDogSend(seachHis(idCus).getIdDog(), dogSend).display();
-
-                            System.out.println("you have to pay" + this.searchDogSend(seachHis(idCus).getIdDog(), dogSend).getPrice());
-
-                            //nhan cho xong thi xoa cho khoi danh sach
-                            dogSale.remove(searchDogSend(seachHis(idCus).getIdDog(), dogSend));
-
-                            //update lai thong tin
-                            //udate data trong file
-                            this.saveCustomer(cus);
-                            this.saveDogSend(dogSend);
-                            this.saveEmployee(emp);
-                            this.saveHistory(his);
-                            a = false;
-                        }
+                    System.out.print("Input ID dog send: ");
+                    String idSend = tool.iString();
+                    if (this.checkIdDogSend(dogSend, idSend)) {
+                        System.out.printf("%-6s %10s %10s %12s %10s %16s %17s %10s\n",
+                                "DOG ID", "ORIGIN", "GENDER", "DOG BREED",
+                                "COLOR", "HEALTH STATUS", "VACCINE STATUS", "PRICE");
+                        this.searchDogSend(idSend, dogSend).display();
+                        System.out.println("You have to pay: " + this.searchDogSend(idSend, dogSend).getPrice());
+                        dogSend.remove(this.searchDogSend(idSend, dogSend));
+                        a = false;
                     }
+
                 }
             }
+            this.saveDogSend(dogSend);
         } catch (Exception e) {
             System.err.println("co loi phan pickUpDog()");
         }
@@ -283,71 +293,6 @@ public class Service {
         } catch (Exception e) {
             System.err.println("co loi phan inputEmp()");
         }
-    }
-
-    public DogForSend inputDogSend() {
-        try {
-            boolean a = true;
-            while (a) {
-                System.out.print("Input ID Dog Send: ");
-                String id = tool.iString();
-                if (!this.checkIdDogSend(dogSend, id)) {
-                    System.out.print("Input name dog: ");
-                    String name = tool.iString();
-
-                    System.out.print("Time send: ");
-                    String timeSend = tool.iString();
-
-                    System.out.print("Time pick up: ");
-                    String timePickUp = tool.iString();
-
-                    System.out.print("Input age: ");
-                    int age = tool.iInt();
-
-                    System.out.print("Input gender: ");
-                    String gender = tool.iString();
-
-                    System.out.print("Input dog breed: ");
-                    String dogBreed = tool.iString();
-
-                    System.out.print("Input color: ");
-                    String color = tool.iString();
-
-                    System.out.print("Input heath status: ");
-                    String healthyStatus = tool.iString();
-
-                    System.out.print("Input vaccine status: ");
-                    String vaccineStatus = tool.iString();
-
-                    System.out.print("Input Price: ");
-                    double price = tool.iDouble();
-
-                    System.out.print("Input Id customer: ");
-                    String customerID = tool.iString();
-                    if (this.checkIdCus(cus, customerID)) {
-                        DogForSend temp = new DogForSend(customerID, timeSend, timePickUp, name, id, age, gender, dogBreed, color, healthyStatus, vaccineStatus, price);
-                        dogSend.add(temp); // lưu chó gửi vào list
-                        System.out.println("Add successfuly !!");
-                        this.saveDogSend(dogSend);
-                        a = false;
-                        return temp;
-                    } else {
-                        Customer cus1 = this.inputCustomer();
-                        DogForSend temp = new DogForSend(cus1.getCustomerID(), timeSend, timePickUp, name, id, age, gender, dogBreed, color, healthyStatus, vaccineStatus, price);
-                        dogSend.add(temp); // lưu chó gửi vào list
-                        cus.add(cus1);
-                        System.out.println("Add successfuly !!");
-                        this.saveCustomer(cus);
-                        this.saveDogSend(dogSend);
-                        a = false;
-                        return temp;
-                    }
-                }
-            }
-        } catch (Exception e) {
-            System.err.println("co loi phan inputDogSend()");
-        }
-        return null;
     }
 
     public Customer inputCustomer() {
@@ -939,7 +884,7 @@ public class Service {
     public void readDogSend() {
         try (BufferedReader reader = new BufferedReader(new FileReader("dataDogSend.txt"))) {
             String line;
-            while (((line = reader.readLine()) != null)) {
+            while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(" , ");
                 String customerID = parts[0];
                 String timeSend = parts[1];
@@ -950,23 +895,13 @@ public class Service {
                 String gender = parts[6];
                 String dogBreed = parts[7];
                 String color = parts[8];
-                String healthyStatus = parts[9];
-                String vaccineStatus = parts[10];
+                String healthy = parts[9];
+                String vaccine = parts[10];
                 double price = Double.parseDouble(parts[11]);
-                //CUS1 , 14-04-2023 , 15-5-2023 , HANH , DOG09 , 12 , DUC , DUC , DO , OKE , 3 MUI , 50000.0
-                DogForSend dg = new DogForSend(customerID, timeSend, timePickUp, name, dogID, age,
-                        gender, dogBreed, color, healthyStatus, vaccineStatus, price);
-                if (dogSend == null) {
-                    dogSend = new ArrayList<>();
-                }
-                dogSend.add(dg);
-
+                DogForSend send = new DogForSend(customerID, timeSend, timePickUp, name, dogID, age, gender, dogBreed, color, healthy, vaccine, price);
+                dogSend.add(send);
             }
-            //System.out.println("Read Dog Send complete!");
-            reader.close();
         } catch (Exception e) {
-            e.printStackTrace();
-            System.err.println("Can't read Dog Send file!");
         }
     }
 
@@ -975,14 +910,14 @@ public class Service {
             String line;
             while (((line = reader.readLine()) != null)) {
                 String[] parts = line.split(" , ");
-                
+
                 int type = Integer.parseInt(parts[0]);
-                double price = Double.parseDouble(parts[1]);
-                String idCus = parts[2];
+                String idCus = parts[1];
                 String idDog = parts[2];
                 String idEmp = parts[3];
-                String currentTime = parts[4];
-                History history = new History(type ,idCus, idDog, idEmp, price, currentTime);
+                double price = Double.parseDouble(parts[4]);
+                String currentTime = parts[5];
+                History history = new History(type, idCus, idDog, idEmp, price, currentTime);
 
                 if (this.his == null) {
                     this.his = new ArrayList<>();

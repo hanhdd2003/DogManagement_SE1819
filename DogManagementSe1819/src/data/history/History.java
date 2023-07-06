@@ -56,8 +56,10 @@ public class History {
     public String getType() {
         if (this.type == 1) {
             return "SALE DOG";
-        } else {
+        } else if (this.type == 2) {
             return "SEND DOG";
+        } else {
+            return "PICK UP";
         }
     }
 
@@ -67,7 +69,7 @@ public class History {
 
     @Override
     public String toString() {
-        return this.type + " , " + this.price + " , " + this.idCus + " , " + this.idDog + " , " + this.idEmp + " , " + this.currentTime;
+        return this.type +" , " + this.idCus + " , " + this.idDog + " , " + this.idEmp + " , " + this.price +  " , " + this.currentTime;
     }
 
 }

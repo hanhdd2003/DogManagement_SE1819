@@ -1,6 +1,5 @@
 package dogmanagementse1819;
 
-import data.Sevice.Service;
 import login.Account;
 import login.AccountManagement;
 import menu.Menu;
@@ -8,10 +7,6 @@ import menu.Menu;
 public class DogManagementSe1819 {
 
     public static void main(String[] args) {
-
-      
-        
-        
         
 //------------------------------xử lý phần đăng nhập--------------------------------
        AccountManagement.a();
