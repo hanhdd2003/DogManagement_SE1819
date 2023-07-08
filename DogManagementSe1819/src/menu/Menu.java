@@ -85,7 +85,6 @@ public class Menu {
                     sv.displayCus();
                     break;
                 case 6:
-                    sv.displayAllFeedback();
                     sv.reply();
                     break;
                 case 7:
@@ -154,7 +153,6 @@ public class Menu {
                     sv.paySalary();
                     break;
                 case 11:
-                    sv.displayAllFeedback();
                     sv.reply();
                     break;
                 case 12:

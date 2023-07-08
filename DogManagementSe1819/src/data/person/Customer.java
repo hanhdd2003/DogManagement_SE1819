@@ -1,10 +1,7 @@
 package data.person;
 
 public class Customer extends Person {
-
-    private String giveFeedback;
     private String customerID;
-    private String reply;
 
     public Customer() {
     }
@@ -27,23 +24,6 @@ public class Customer extends Person {
                 this.getCustomerID(), this.getName(), this.getAge(), this.getPhoneNumber(),
                 this.getAddress());
 
-    }
-    //String customerID, String name, int age, String phoneNumber, String address
-
-    public String getGiveFeedback() {
-        return giveFeedback;
-    }
-
-    public void setGiveFeedback(String giveFeedback) {
-        this.giveFeedback = giveFeedback;
-    }
-
-    public String getReply() {
-        return reply;
-    }
-
-    public void setReply(String reply) {
-        this.reply = reply;
     }
 
     @Override

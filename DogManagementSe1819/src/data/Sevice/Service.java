@@ -4,6 +4,7 @@ import data.dog.*;
 import data.history.History;
 import data.person.Customer;
 import data.person.Employee;
+import data.person.Feedback;
 import java.io.*;
 import java.util.ArrayList;
 import tool.MyTool;
@@ -18,6 +19,7 @@ public class Service {
     private ArrayList<Customer> cus = new ArrayList<>();
     private ArrayList<Employee> emp = new ArrayList<>();
     private ArrayList<History> his = new ArrayList<>();
+    private ArrayList<Feedback> feedback = new ArrayList<>();
 
     public Service() {
     }
@@ -26,16 +28,12 @@ public class Service {
     public void loadData() {
 
         try {
-            //System.out.println("Read Dog Sale:  ");
             this.readDogSale();
-            //System.out.println("Read Dog Send: ");
             this.readDogSend();
-            //System.out.println("Read Customer: ");
             this.readCustomer();
-            //System.out.println("Read Employee: ");
             this.readEmployee();
-            //System.out.println("Read history: ");
             this.readHistory();
+            this.readFeedback();
         } catch (Exception e) {
             System.err.println("co loi roi hi hi");
         }
@@ -52,7 +50,7 @@ public class Service {
 
                 //kiem tra id hop le
                 if (searchCus(idCus, cus) == null) {
-                    System.out.println("Customer ID not exit !!");
+                    System.err.println("Customer ID not exit !!");
                     System.out.println("Add new customer: ");
                     Customer cusTemp = this.inputCustomer();
                     cus.add(cusTemp);
@@ -117,7 +115,7 @@ public class Service {
                 String idCus = tool.iString();
                 //kiem tra id hop le
                 if (this.searchCus(idCus, cus) == null) {
-                    System.out.println("Customer ID not exit !!");
+                    System.err.println("Customer ID not exit !!");
                     Customer cusTemp = this.inputCustomer();
                     cus.add(cusTemp);
                 }
@@ -169,10 +167,10 @@ public class Service {
                         System.out.println("Send successfully !");
                         a = false;
                     } else {
-                        System.out.println("Employee not exist !");
+                        System.err.println("Employee not exist !");
                     }
                 } else {
-                    System.out.println("Dog Send already exist !");
+                    System.err.println("Dog Send already exist !");
                 }
             }
             this.saveCustomer(cus);
@@ -194,7 +192,7 @@ public class Service {
                 String idCus = tool.iString();
                 //kiem tra id hop le
                 if (this.searchCus(idCus, cus) == null) {
-                    System.out.print("Customer ID not exit !!");
+                    System.err.print("Customer ID not exit !!");
                 } else {
                     System.out.print("Input ID dog send: ");
                     String idSend = tool.iString();
@@ -405,7 +403,7 @@ public class Service {
                 }
                 this.saveEmployee(emp);
             } else {
-                System.out.println("Can't find Employee !");
+                System.err.println("Can't find Employee !");
             }
         } catch (Exception e) {
             System.err.println("co loi phan fixInFoEmp()");
@@ -669,7 +667,7 @@ public class Service {
                 }
                 this.saveDogSend(dogSend);
             } else {
-                System.out.println("Can't find dog send !");
+                System.err.println("Can't find dog send !");
             }
         } catch (Exception e) {
             System.err.println("co loi phan fixInfoDogSend()");
@@ -686,7 +684,7 @@ public class Service {
                 dogSale.remove(this.searchDogSale(dogID, dogSale));
                 this.saveDogSale(dogSale);
             } else {
-                System.out.println("Can't find Dog For Sale !");
+                System.err.println("Can't find Dog For Sale !");
             }
         } catch (Exception e) {
             System.err.println("co loi phan removeDogSale()");
@@ -700,7 +698,7 @@ public class Service {
             dogSend.remove(this.searchDogSend(dogID, dogSend));
             this.saveDogSend(dogSend);
         } else {
-            System.out.println("Can't find Dog For Send !");
+            System.err.println("Can't find Dog For Send !");
         }
     }
 
@@ -711,7 +709,7 @@ public class Service {
             cus.remove(searchCus(customerID, cus));
             this.saveCustomer(cus);
         } else {
-            System.out.println("Can't find Customer !");
+            System.err.println("Can't find Customer !");
         }
 
     }
@@ -723,7 +721,7 @@ public class Service {
             emp.remove(seachEmp(employeeID, emp));
             this.saveEmployee(emp);
         } else {
-            System.out.println("Can't find Employee !");
+            System.err.println("Can't find Employee !");
         }
     }
 
@@ -733,9 +731,9 @@ public class Service {
         System.out.printf("%-6s %10s %10s %12s %10s %16s %17s %10s\n",
                 "DOG ID", "ORIGIN", "GENDER", "DOG BREED",
                 "COLOR", "HEALTH STATUS", "VACCINE STATUS", "PRICE");
-        for (DogForSale dog : dogSale) {
+        dogSale.forEach((dog) -> {
             dog.display();
-        }
+        });
         System.out.println("-----------------------------");
     }
 
@@ -745,9 +743,9 @@ public class Service {
                 "DOG ID", "NAME", "GENDER", "DOG BREED",
                 "COLOR", "HEALTH STATUS", "VACCINE STATUS",
                 "TIME PICK UP", "TIME SEND", "PRICE");
-        for (DogForSend dog : dogSend) {
+        dogSend.forEach((dog) -> {
             dog.display();
-        }
+        });
         System.out.println("-----------------------------");
     }
 
@@ -756,9 +754,9 @@ public class Service {
         System.out.printf("%8s %10s %10s %18s %15s\n",
                 "CUSTOMER ID", "NAME", "AGE", "PHONE NUMBER",
                 "ADDRESS");
-        for (Customer cus1 : cus) {
+        cus.forEach((cus1) -> {
             cus1.display();
-        }
+        });
         System.out.println("-----------------------------");
     }
 
@@ -767,9 +765,9 @@ public class Service {
         System.out.printf("%8s %10s %10s %10s %17s %15s \n",
                 "EMPLOYEE ID", "DAY", "NAME", "AGE", "PHONE NUMBER",
                 "ADDRESS");
-        for (Employee emp1 : emp) {
+        emp.forEach((emp1) -> {
             emp1.display();
-        }
+        });
         System.out.println("-----------------------------");
     }
 
@@ -778,9 +776,9 @@ public class Service {
         System.out.println("List History: ");
         System.out.printf("%12s %10s %12s %8s %12s %15s \n",
                 "HISTORY TYPE", "PRICE", "CUSTOMER ID", "DOG ID", "EMPLOYEE ID", "TIME");
-        for (History his1 : his) {
+        his.forEach((his1) -> {
             his1.display();
-        }
+        });
         System.out.println("-----------------------------");
     }
 
@@ -850,6 +848,18 @@ public class Service {
         }
     }
 
+    public void saveFeedBack(ArrayList<Feedback> feedback) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("dataFeedback.txt"))) {
+            for (Feedback fb : feedback) {
+                writer.write(fb + "");
+                writer.newLine();
+            }
+            writer.close();
+        } catch (Exception e) {
+            System.err.println("Can't save file!");
+        }
+    }
+
 //--------------------------------------- phần đọc file ------------------------------------------------
     public void readDogSale() {
         try (BufferedReader reader = new BufferedReader(new FileReader("dataDogSale.txt"))) {
@@ -876,7 +886,6 @@ public class Service {
             }
             //System.out.println("Read Dog Sale complete!");
         } catch (Exception e) {
-            e.printStackTrace();
             System.err.println("Can't read Dog Sale file!");
         }
     }
@@ -885,23 +894,31 @@ public class Service {
         try (BufferedReader reader = new BufferedReader(new FileReader("dataDogSend.txt"))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(" , ");
-                String customerID = parts[0];
-                String timeSend = parts[1];
-                String timePickUp = parts[2];
-                String name = parts[3];
-                String dogID = parts[4];
-                int age = Integer.parseInt(parts[5]);
-                String gender = parts[6];
-                String dogBreed = parts[7];
-                String color = parts[8];
-                String healthy = parts[9];
-                String vaccine = parts[10];
-                double price = Double.parseDouble(parts[11]);
-                DogForSend send = new DogForSend(customerID, timeSend, timePickUp, name, dogID, age, gender, dogBreed, color, healthy, vaccine, price);
-                dogSend.add(send);
+                try {
+                    String[] parts = line.split(" , ");
+                    String customerID = parts[0];
+                    String timeSend = parts[1];
+                    String timePickUp = parts[2];
+                    String name = parts[3];
+                    String dogID = parts[4];
+                    int age = Integer.parseInt(parts[5]);
+                    String gender = parts[6];
+                    String dogBreed = parts[7];
+                    String color = parts[8];
+                    String healthy = parts[9];
+                    String vaccine = parts[10];
+                    double price = Double.parseDouble(parts[11]);
+                    DogForSend send = new DogForSend(customerID, timeSend, timePickUp, name, dogID, age, gender, dogBreed, color, healthy, vaccine, price);
+                    if (dogSend == null) {
+                        dogSend = new ArrayList<>();
+                    }
+                    dogSend.add(send);
+                } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
+                }
             }
+            reader.close();
         } catch (Exception e) {
+            System.err.println("Can't read Dog Send file!");
         }
     }
 
@@ -909,25 +926,25 @@ public class Service {
         try (BufferedReader reader = new BufferedReader(new FileReader("dataHistory.txt"))) {
             String line;
             while (((line = reader.readLine()) != null)) {
-                String[] parts = line.split(" , ");
-
-                int type = Integer.parseInt(parts[0]);
-                String idCus = parts[1];
-                String idDog = parts[2];
-                String idEmp = parts[3];
-                double price = Double.parseDouble(parts[4]);
-                String currentTime = parts[5];
-                History history = new History(type, idCus, idDog, idEmp, price, currentTime);
-
-                if (this.his == null) {
-                    this.his = new ArrayList<>();
+                try {
+                    String[] parts = line.split(" , ");
+                    int type = Integer.parseInt(parts[0]);
+                    String idCus = parts[1];
+                    String idDog = parts[2];
+                    String idEmp = parts[3];
+                    double price = Double.parseDouble(parts[4]);
+                    String currentTime = parts[5];
+                    History history = new History(type, idCus, idDog, idEmp, price, currentTime);
+                    if (his == null) {
+                        his = new ArrayList<>();
+                    }
+                    his.add(history);
+                } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
                 }
-                his.add(history);
             }
             //System.out.println("Read History complete!");
             reader.close();
         } catch (Exception e) {
-            e.printStackTrace();
             System.err.println("Can't read History file!");
         }
     }
@@ -936,23 +953,24 @@ public class Service {
         try (BufferedReader reader = new BufferedReader(new FileReader("dataCustomer.txt"))) {
             String line;
             while (((line = reader.readLine()) != null)) {
-                String[] parts = line.split(" , ");
-                String customerID = parts[0];
-                String name = parts[1];
-                int age = Integer.parseInt(parts[2]);
-                String phoneNumber = parts[3];
-                String address = parts[4];
-
-                Customer dg = new Customer(customerID, name, age, phoneNumber, address);
-                if (cus == null) {
-                    cus = new ArrayList<>();
+                try {
+                    String[] parts = line.split(" , ");
+                    String customerID = parts[0];
+                    String name = parts[1];
+                    int age = Integer.parseInt(parts[2]);
+                    String phoneNumber = parts[3];
+                    String address = parts[4];
+                    Customer dg = new Customer(customerID, name, age, phoneNumber, address);
+                    if (cus == null) {
+                        cus = new ArrayList<>();
+                    }
+                    cus.add(dg);
+                } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
                 }
-                cus.add(dg);
             }
             //System.out.println("Read file Customer complete!");
             reader.close();
         } catch (Exception e) {
-            e.printStackTrace();
             System.err.println("Can't read Customer file!");
         }
     }
@@ -961,26 +979,52 @@ public class Service {
         try (BufferedReader reader = new BufferedReader(new FileReader("dataEmployee.txt"))) {
             String line;
             while (((line = reader.readLine()) != null)) {
-                String[] parts = line.split(" , ");
-                String employeeID = parts[0];
-                double dayNumber = Double.parseDouble(parts[1]);
-                String name = parts[2];
-                int age = Integer.parseInt(parts[3]);
-                String phoneNumber = parts[4];
-                String address = parts[5];
+                try {
+                    String[] parts = line.split(" , ");
+                    String employeeID = parts[0];
+                    double dayNumber = Double.parseDouble(parts[1]);
+                    String name = parts[2];
+                    int age = Integer.parseInt(parts[3]);
+                    String phoneNumber = parts[4];
+                    String address = parts[5];
 
-                Employee dg = new Employee(employeeID, name, age, phoneNumber, address);
-                dg.setDayNumber(dayNumber);
-                if (emp == null) {
-                    emp = new ArrayList<>();
+                    Employee dg = new Employee(employeeID, name, age, phoneNumber, address);
+                    dg.setDayNumber(dayNumber);
+                    if (emp == null) {
+                        emp = new ArrayList<>();
+                    }
+                    emp.add(dg);
+                } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
                 }
-                emp.add(dg);
             }
             //System.out.println("Read file Employee complete!");
             reader.close();
         } catch (Exception e) {
-            e.printStackTrace();
             System.err.println("Can't read Employee file!");
+        }
+    }
+
+    public void readFeedback() {
+        try (BufferedReader reader = new BufferedReader(new FileReader("dataFeedback.txt"))) {
+            String line;
+            while (((line = reader.readLine()) != null)) {
+                try {
+                    String[] parts = line.split(" , ");
+                    String id = parts[0];
+                    String f = parts[1];
+                    String r = parts[2];
+                    Feedback dg = new Feedback(id, f, r);
+                    if (feedback == null) {
+                        feedback = new ArrayList<>();
+                    }
+                    feedback.add(dg);
+                } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
+                }
+            }
+            //System.out.println("Read file Feedback complete!");
+            reader.close();
+        } catch (Exception e) {
+            System.err.println("Can't read FeedBack file!");
         }
     }
 // --------------------------------------- phần lấy dữ liệu danh sách---------------------------------
@@ -1053,39 +1097,19 @@ public class Service {
 //---------------------------check id da ton tai hay chua-------------------
 
     public boolean checkIdEmp(ArrayList<Employee> arr, String id) {
-        for (Employee emp1 : arr) {
-            if (emp1.getEmployeeID().equalsIgnoreCase(id)) {
-                return true;
-            }
-        }
-        return false;
+        return arr.stream().anyMatch((emp1) -> (emp1.getEmployeeID().equalsIgnoreCase(id)));
     }
 
     public boolean checkIdCus(ArrayList<Customer> arr, String id) {
-        for (Customer cus1 : arr) {
-            if (cus1.getCustomerID().equalsIgnoreCase(id)) {
-                return true;
-            }
-        }
-        return false;
+        return arr.stream().anyMatch((cus1) -> (cus1.getCustomerID().equalsIgnoreCase(id)));
     }
 
     public boolean checkIdDogSend(ArrayList<DogForSend> arr, String id) {
-        for (DogForSend dog : arr) {
-            if (dog.getDogID().equalsIgnoreCase(id)) {
-                return true;
-            }
-        }
-        return false;
+        return arr.stream().anyMatch((dog) -> (dog.getDogID().equalsIgnoreCase(id)));
     }
 
     public boolean checkIdDogSale(ArrayList<DogForSale> arr, String id) {
-        for (DogForSale dog : arr) {
-            if (dog.getDogID().equalsIgnoreCase(id)) {
-                return true;
-            }
-        }
-        return false;
+        return arr.stream().anyMatch((dog) -> (dog.getDogID().equalsIgnoreCase(id)));
     }
 //-----------------------------------feedback----------------------------------------
 
@@ -1094,12 +1118,14 @@ public class Service {
             System.out.println("Enter your ID: ");
             String id = tool.iString();
             if (this.checkIdCus(cus, id)) {
-                Customer cusFeedback = this.searchCus(id, cus);
                 System.out.println("Send your feedback: ");
-                String feedback = tool.iString();
-                cusFeedback.setGiveFeedback(feedback);
+                String feedBack = tool.iString();
+                Feedback fb = new Feedback(id, feedBack);
+                feedback.add(fb);
+                this.saveFeedBack(feedback);
+                System.out.println("Send feedback successful!");
             } else {
-                System.err.println("ID does not exist!");
+                System.err.println("ID Customer does not exist!");
             }
         } catch (Exception e) {
             System.err.println("co loi phan sendFeedBack()");
@@ -1107,52 +1133,56 @@ public class Service {
     }
 
     public void displayAllFeedback() {
-        try {
-            for (Customer customer : cus) {
-                if (customer.getGiveFeedback() != null) {
-                    System.out.printf("%5s %10s\n", "ID", "Message");
-                    System.out.format("%5s %10s\n", customer.getCustomerID(), customer.getGiveFeedback());
-                }
-            }
-        } catch (Exception e) {
-            System.err.println("co loi phan displayAllFeedback()");
-        }
+        System.out.printf("%2s %20s\n", "ID", "FeedBack");
+        feedback.forEach((fb) -> {
+            fb.displayFeedback();
+        });
     }
 
     public void reply() {
         try {
-            System.out.println("Reply FeedBack Of Customer ID: ");
+            this.displayAllFeedback();
+            System.out.println("Enter Customer ID to reply to: ");
             String cusID = tool.iString();
-            if (this.checkIdCus(cus, cusID)) {
-                Customer cusFB = this.searchCus(cusID, cus);
-                System.out.println("Your reply: ");
-                String reply = tool.iString();
-                cusFB.setReply(reply);
+            boolean isCustomerExist = false;
+
+            for (Feedback fb : feedback) {
+                if (fb.getIdCustomer().equalsIgnoreCase(cusID)) {
+                    System.out.println("Enter your reply: ");
+                    String reply = tool.iString();
+                    fb.setReply(reply);
+                    isCustomerExist = true;
+                    break;
+                }
+            }
+
+            if (isCustomerExist) {
+                this.saveFeedBack(feedback);
+                System.out.println("Reply sent successfully!");
             } else {
-                System.err.println("ID does not exist!");
+                System.err.println("Customer does not exist!");
             }
         } catch (Exception e) {
-            System.err.println("co loi phan reply()");
+            System.err.println("có lỗi phần reply!");
         }
     }
 
-    public void displayReply() {
-        try {
-            System.out.println("Reply of ID Customer: ");
-            String idCuss = tool.iString();
-            if (this.checkIdCus(cus, idCuss)) {
-                Customer customer = this.searchCus(idCuss, cus);
-                System.out.printf("%5s %10s\n", "ID", "Message");
-                System.out.format("%5s  %10s\n", customer.getCustomerID(), customer.getReply());
-            } else {
-                System.err.println("ID does not exist!");
-            }
-        } catch (Exception e) {
-            System.err.println("co loi phan displayReply()");
-        }
+public void displayReply() {
+    try {
+        System.out.println("Enter your ID: ");
+        String idCuss = tool.iString();
+        System.out.printf("%10s %15s %24s\n", "ID Customer", "FeedBack", "Reply");
+
+        feedback.stream()
+                .filter(fb -> fb.getIdCustomer().equalsIgnoreCase(idCuss))
+                .forEach(feedback1 -> feedback1.displayreply());
+    } catch (Exception e) {
+        System.err.println("Có lỗi phần hiển thị reply!");
     }
+}
+
+
 //------------------------------------ trả lương --------------------------------
-
     public void paySalary() {
         for (Employee employee : emp) {
             System.out.printf("%5s %10s %10s \n", "ID", "NAME", "Salary");
@@ -1165,9 +1195,7 @@ public class Service {
     public void moneyFromHis() {
         try {
             double tongTien = 0;
-            for (History temp : this.getHistory()) {
-                tongTien += temp.getPrice();
-            }
+            tongTien = this.getHistory().stream().map((temp) -> temp.getPrice()).reduce(tongTien, (accumulator, _item) -> accumulator + _item);
             System.out.println("All money: " + tongTien);
         } catch (Exception e) {
             System.err.println("co loi phan moneyFromHis()");
