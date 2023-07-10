@@ -1,6 +1,7 @@
 package tool;
 
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class MyTool {
 
@@ -39,6 +40,22 @@ public class MyTool {
             try {
                 c = sc.nextLine();
                 return c.toUpperCase();
+            } catch (Exception e) {
+                System.out.println("Try input againt !!");
+            }
+
+        }
+    }
+    
+    public String iPhoneNum(){
+        while (true) {
+            try {
+                
+                c = sc.nextLine();
+                Pattern p = Pattern.compile("^[0-9]{10}$");
+                if(p.matcher(c).matches()) {
+                    return c.toUpperCase();
+                }
             } catch (Exception e) {
                 System.out.println("Try input againt !!");
             }

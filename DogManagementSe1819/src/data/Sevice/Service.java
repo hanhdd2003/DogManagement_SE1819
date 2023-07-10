@@ -54,7 +54,7 @@ public class Service {
                     System.err.println("Customer ID not exit !!");
                     System.out.println("Add new customer: ");
                     Customer cusTemp = this.inputCustomer();
-                    cus.add(cusTemp);
+                    //cus.add(cusTemp); ko can luu tai da luu trong inputCus
                 }
 
                 this.displayDogSale();
@@ -286,7 +286,7 @@ public class Service {
                     int age = tool.iInt();
 
                     System.out.print("Input phone number: ");
-                    String phoneNumber = tool.iString();
+                    String phoneNumber = tool.iPhoneNum();
 
                     System.out.print("Input address: ");
                     String address = tool.iString();
@@ -316,7 +316,7 @@ public class Service {
                     int age = tool.iInt();
 
                     System.out.print("Input phone number: ");
-                    String phoneNumber = tool.iString();
+                    String phoneNumber = tool.iPhoneNum();
 
                     System.out.print("Input address: ");
                     String address = tool.iString();
@@ -375,7 +375,7 @@ public class Service {
                             break;
                         case 4:
                             System.out.println("New PhoneNumber: ");
-                            String newPhoneNumber = tool.iString();
+                            String newPhoneNumber = tool.iPhoneNum();
                             employ.setPhoneNumber(newPhoneNumber);
                             System.out.println("Update Phonenumber successful!");
                             break;
@@ -458,7 +458,7 @@ public class Service {
                             break;
                         case 4:
                             System.out.println("New PhoneNumber: ");
-                            String newPhoneNumber = tool.iString();
+                            String newPhoneNumber = tool.iPhoneNum();
                             cus1.setPhoneNumber(newPhoneNumber);
                             System.out.println("Update Phonenumber successful!");
                             break;
@@ -785,16 +785,72 @@ public class Service {
         System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
     }
 
-    public void displayHistory() {
+    public void displayHistorySale() {
         //("%10s %10s %12s %8s %12s %15s\n", idHis, price, idCus, idDog, idEmp, currentTime)
         System.out.println("List History: ");
         System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
         System.out.printf("%-17s %-15s %-14s %-12s %-15s %-15s \n",
                 "HISTORY TYPE", "PRICE", "CUSTOMER ID", "DOG ID", "EMPLOYEE ID", "TIME");
-        his.forEach((his1) -> {
-            his1.display();
-        });
+        List<History> tempHis;
+        tempHis = his.stream().filter((his1) -> his1.getType().equalsIgnoreCase("SALE DOG")).collect(Collectors.toList());
         System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
+    }
+
+    public void displayHistorySend() {
+        //("%10s %10s %12s %8s %12s %15s\n", idHis, price, idCus, idDog, idEmp, currentTime)
+        System.out.println("List History: ");
+        System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
+        System.out.printf("%-17s %-15s %-14s %-12s %-15s %-15s \n",
+                "HISTORY TYPE", "PRICE", "CUSTOMER ID", "DOG ID", "EMPLOYEE ID", "TIME");
+        List<History> tempHis;
+        tempHis = his.stream().filter((his1) -> his1.getType().equalsIgnoreCase("SEND DOG")).collect(Collectors.toList());
+        System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
+    }
+
+    public void displayHistoryPickUp() {
+        //("%10s %10s %12s %8s %12s %15s\n", idHis, price, idCus, idDog, idEmp, currentTime)
+        System.out.println("List History: ");
+        System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
+        System.out.printf("%-17s %-15s %-14s %-12s %-15s %-15s \n",
+                "HISTORY TYPE", "PRICE", "CUSTOMER ID", "DOG ID", "EMPLOYEE ID", "TIME");
+        List<History> tempHis;
+        tempHis = his.stream().filter((his1) -> his1.getType().equalsIgnoreCase("PICK UP")).collect(Collectors.toList());
+        System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
+    }
+//
+
+    public void displayHistory() {
+        try {
+            boolean a = true;
+            while (a) {
+                System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
+            }
+
+            System.out.println("You want to check:");
+            System.out.println("1. History sale.");
+            System.out.println("2. History send.");
+            System.out.println("3. History pick up.");
+            System.out.println("0. Exit");
+
+            System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
+            System.out.print("Your choice: ");
+            int choice = tool.iInt();
+            switch (choice) {
+                case 1:
+                    displayHistorySale();
+                    break;
+                case 2:
+                    displayHistorySend();
+                    break;
+                case 3:
+                    displayHistoryPickUp();
+                    break;
+                case 4:
+                    a = false;
+                    break;
+            }
+        } catch (Exception e) {
+        }
     }
 
     //----------------------------------------phần ghi xuống file-------------------------------------------------
@@ -1325,9 +1381,7 @@ public class Service {
 
     public void moneyFromHis() {
         try {
-            double tongTien = 0;
-            tongTien = this.getHistory().stream().map((temp) -> temp.getPrice()).reduce(tongTien, (accumulator, _item) -> accumulator + _item);
-            System.out.println("All money: " + tongTien);
+
         } catch (Exception e) {
             System.err.println("co loi phan moneyFromHis()");
         }
