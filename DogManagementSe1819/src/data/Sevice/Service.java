@@ -792,7 +792,14 @@ public class Service {
         System.out.printf("%-17s %-15s %-14s %-12s %-15s %-15s \n",
                 "HISTORY TYPE", "PRICE", "CUSTOMER ID", "DOG ID", "EMPLOYEE ID", "TIME");
         List<History> tempHis;
+        double tongTien = 0;
         tempHis = his.stream().filter((his1) -> his1.getType().equalsIgnoreCase("SALE DOG")).collect(Collectors.toList());
+        tempHis.forEach((his1) -> his1.display());
+        for (History his1 : his) {
+            tongTien += his1.getPrice();
+        }
+        System.out.println("");
+        System.out.println("Money: " + tongTien);
         System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
     }
 
@@ -803,7 +810,14 @@ public class Service {
         System.out.printf("%-17s %-15s %-14s %-12s %-15s %-15s \n",
                 "HISTORY TYPE", "PRICE", "CUSTOMER ID", "DOG ID", "EMPLOYEE ID", "TIME");
         List<History> tempHis;
+        double tongTien = 0;
         tempHis = his.stream().filter((his1) -> his1.getType().equalsIgnoreCase("SEND DOG")).collect(Collectors.toList());
+        tempHis.forEach((his1) -> his1.display());
+        for (History his1 : his) {
+            tongTien += his1.getPrice();
+        }
+        System.out.println("");
+        System.out.println("Money: " + tongTien);
         System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
     }
 
@@ -814,7 +828,14 @@ public class Service {
         System.out.printf("%-17s %-15s %-14s %-12s %-15s %-15s \n",
                 "HISTORY TYPE", "PRICE", "CUSTOMER ID", "DOG ID", "EMPLOYEE ID", "TIME");
         List<History> tempHis;
+        double tongTien = 0;
         tempHis = his.stream().filter((his1) -> his1.getType().equalsIgnoreCase("PICK UP")).collect(Collectors.toList());
+        tempHis.forEach((his1) -> his1.display());
+        for (History his1 : his) {
+            tongTien += his1.getPrice();
+        }
+        System.out.println("");
+        System.out.println("Money: " + tongTien);
         System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
     }
 //
