@@ -4,7 +4,7 @@ public class Employee extends Person {
 
     private String employeeID;
     private double salary;
-    private double dayNumber = 30;
+    private double dayNumber;
     private double bonus = 0;
 
     public Employee(String employeeID, String name, int age, String phoneNumber, String address) {

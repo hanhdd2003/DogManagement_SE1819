@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import tool.MyTool;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Service {
 
@@ -74,21 +77,21 @@ public class Service {
                     if (this.seachEmp(idEmp, emp) == null) {
                         System.err.println("Employee ID not exit !!");
                     } else {
-                        System.out.println("You have to pay: " + searchDogSale(idDog, dogSale).getPrice());
+                        System.out.println("You have to pay: " + this.searchDogSale(idDog, dogSale).getPrice());
 
                         //update data
                         LocalDateTime now = LocalDateTime.now();
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                         String formattedDateTime = now.format(formatter);
-                        History his1 = new History(1,idCus, idDog, idEmp, searchDogSale(idDog, dogSale).getPrice(), formattedDateTime);
+                        History his1 = new History(1, idCus, idDog, idEmp, this.searchDogSale(idDog, dogSale).getPrice(), formattedDateTime);
                         his.add(his1);
                         //tang bonus cho nhan vien
                         if (this.seachEmp(idEmp, emp) != null && this.searchDogSale(idDog, dogSale) != null) {
-                            double bonus = searchDogSale(idDog, dogSale).getPrice() * 0.1;
+                            double bonus = this.searchDogSale(idDog, dogSale).getPrice() * 0.1;
                             this.seachEmp(idEmp, emp).setBonus(bonus);
                             //System.out.println("Bonus: "+this.seachEmp(idEmp, emp).getBonus());
                         }
-                        dogSale.remove(searchDogSale(idDog, dogSale));
+                        dogSale.remove(this.searchDogSale(idDog, dogSale));
 
                         //luu lai du lieu
                         this.saveDogSale(dogSale);
@@ -135,7 +138,7 @@ public class Service {
                     LocalDateTime now = LocalDateTime.now();
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                     String formattedDateTime = now.format(formatter);
-                    History tempHis = new History(2, idCus, idEmp, idEmp, temp.getPrice(),formattedDateTime );
+                    History tempHis = new History(2, idCus, idEmp, idEmp, temp.getPrice(), formattedDateTime);
                     dogSend.add(temp);
                     his.add(tempHis);
 
@@ -156,7 +159,7 @@ public class Service {
     //-------------------------------------pick up dog ----------------------------
 
     public void pickUpDog() {
-        try {           
+        try {
             boolean a = true;
             while (a) {
                 this.displayCus();
@@ -324,24 +327,13 @@ public class Service {
 
                     System.out.print("Input Id customer: ");
                     String customerID = tool.iString();
-                    if (this.checkIdCus(cus, customerID)) {
-                        DogForSend temp = new DogForSend(customerID, timeSend, timePickUp, name, id, age, gender, dogBreed, color, healthyStatus, vaccineStatus, price);
-                        dogSend.add(temp); // lưu chó gửi vào list
-                        System.out.println("Add successfuly !!");
-                        this.saveDogSend(dogSend);
-                        a = false;
-                        return temp;
-                    } else {
-                        Customer cus1 = this.inputCustomer();
-                        DogForSend temp = new DogForSend(cus1.getCustomerID(), timeSend, timePickUp, name, id, age, gender, dogBreed, color, healthyStatus, vaccineStatus, price);
-                        dogSend.add(temp); // lưu chó gửi vào list
-                        cus.add(cus1);
-                        System.out.println("Add successfuly !!");
-                        this.saveCustomer(cus);
-                        this.saveDogSend(dogSend);
-                        a = false;
-                        return temp;
-                    }
+
+                    DogForSend temp = new DogForSend(customerID, timeSend, timePickUp, name, id, age, gender, dogBreed, color, healthyStatus, vaccineStatus, price);
+                    dogSend.add(temp); // lưu chó gửi vào list
+                    System.out.println("Add successfuly !!");
+                    this.saveDogSend(dogSend);
+                    a = false;
+                    return temp;
                 }
             }
         } catch (Exception e) {
@@ -975,14 +967,14 @@ public class Service {
             String line;
             while (((line = reader.readLine()) != null)) {
                 String[] parts = line.split(" , ");
-                
+
                 int type = Integer.parseInt(parts[0]);
                 double price = Double.parseDouble(parts[1]);
                 String idCus = parts[2];
                 String idDog = parts[2];
                 String idEmp = parts[3];
                 String currentTime = parts[4];
-                History history = new History(type ,idCus, idDog, idEmp, price, currentTime);
+                History history = new History(type, idCus, idDog, idEmp, price, currentTime);
 
                 if (this.his == null) {
                     this.his = new ArrayList<>();
@@ -1071,6 +1063,8 @@ public class Service {
     }
 //-------------------------------------phan search-------------------------------------------
 
+   
+    
     public DogForSale searchDogSale(String id, ArrayList<DogForSale> arrDog) {
         for (DogForSale dog : arrDog) {
             if (id.equalsIgnoreCase(dog.getDogID())) {
@@ -1233,6 +1227,7 @@ public class Service {
             for (History temp : this.getHistory()) {
                 tongTien += temp.getPrice();
             }
+            
             System.out.println("All money: " + tongTien);
         } catch (Exception e) {
             System.err.println("co loi phan moneyFromHis()");
