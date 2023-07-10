@@ -26,7 +26,7 @@ public class DogForSale extends Dog {
     
     @Override
     public void display() {
-        System.out.printf("%-10s %-11s %-8s %-15s %-10s %-15s %-15s %-10.1f \t\n",
+        System.out.printf("%-10s %-15s %-15s %-20s %-15s %-17s %-17s %-10.1f \t\n",
                 this.getDogID(), this.getOrigin(), this.getGender(),
                 this.getDogBreed(), this.getColor(), this.getHealthyStatus(),
                 this.getVaccineStatus(), this.getPrice());

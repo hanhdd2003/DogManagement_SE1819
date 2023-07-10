@@ -18,7 +18,7 @@ public class AccountManagement {
 
         boolean a = true;
         while (a) {
-            String input = JOptionPane.showInputDialog(null, "Enter your choice (1: Sign Up, 2: Login \n 3: Change Password ,4: Forgot Password 5: Exit):");
+            String input = JOptionPane.showInputDialog(null, "Enter your choice \n1: Sign Up \n2: Login \n3: Change Password \n4: Forgot Password \n5: Exit");
             if (input == null) {
                 a = false;
                 break;

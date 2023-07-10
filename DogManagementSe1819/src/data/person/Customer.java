@@ -20,7 +20,7 @@ public class Customer extends Person {
     }
 
     public void display() {
-        System.out.format("%-17s %-11s %-9s %-19s %-20s\n",
+        System.out.format("%-17s %-20s %-10s %-19s %-20s\n",
                 this.getCustomerID(), this.getName(), this.getAge(), this.getPhoneNumber(),
                 this.getAddress());
 

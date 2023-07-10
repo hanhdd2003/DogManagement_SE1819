@@ -17,14 +17,14 @@ public class Menu {
     public void menuCustomer() {  
         while (choice) {
             //---------------------------------bán chó--------------------------------           
-            System.out.println("MENU");
+            System.out.println("---------------------MENU---------------------");
             System.out.println("1. Buy Dog.");
             System.out.println("2. Send Dog.");
             System.out.println("3. Received Dog.");
             System.out.println("4. Send Feedback.");
             System.out.println("5. Get reply");
             System.out.println("0. Exit");
-
+            System.out.println("----------------------------------------------\n");
             System.out.print("Your choice: ");
             b = tool.iInt();
             switch (b) {
@@ -52,7 +52,7 @@ public class Menu {
 
     public void menuEmployee() {   //02 là nhân viên
         while (choice) {
-            System.out.println("MENU-----------------------");
+            System.out.println("------------------------------MENU------------------------------");
             System.out.println("1. Sale Dog.");
             System.out.println("2. Received Dog.");
             System.out.println("3. Check Dog Sale.");
@@ -63,6 +63,8 @@ public class Menu {
             System.out.println("8. Fix infomation of dog send.");
             System.out.println("9. Fix infomation of Customer.");
             System.out.println("0. Exit");
+            System.out.println("----------------------------------------------------------------\n");
+            
             System.out.print("Your choice: ");
             b = tool.iInt();
             switch (b) {
@@ -102,7 +104,7 @@ public class Menu {
 /////////////////////////////////////////////////////////////////////
     public void menuManager() { // 01 là quản lý
         while (choice) {
-            System.out.println("MENU-----------------------");
+            System.out.println("-----------------------------MENU-----------------------------");
             System.out.println("1. Check Dog Sale.");
             System.out.println("2. Check Dog Send.");
             System.out.println("3. Check Customer.");
@@ -116,7 +118,7 @@ public class Menu {
             System.out.println("11. Reply Feedback.");
             System.out.println("12. Check history. ");
             System.out.println("0. Exit");
-
+            System.out.println("--------------------------------------------------------------\n");       
             System.out.print("Your choice: ");
             b = tool.iInt();
             switch (b) {

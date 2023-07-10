@@ -46,7 +46,7 @@ public class Employee extends Person {
     }
 
     public void display() {
-        System.out.format("%-18s %-9s %-11s %-9s %-19s %-18s \n",
+        System.out.format("%-15s %-9s %-20s %-9s %-19s %-18s\n",
                 this.getEmployeeID(), this.getDayNumber(), this.getName(), this.getAge(), this.getPhoneNumber(),
                 this.getAddress());
 

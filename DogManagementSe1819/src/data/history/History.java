@@ -64,7 +64,7 @@ public class History {
     }
 
     public void display() {
-        System.out.printf("%12s %10s %12s %8s %12s %15s\n", this.getType(), price, idCus, idDog, idEmp, currentTime);
+        System.out.printf("%-17s %-15s %-14s %-12s %-15s %-15s\n", this.getType(), price, idCus, idDog, idEmp, currentTime);
     }
 
     @Override

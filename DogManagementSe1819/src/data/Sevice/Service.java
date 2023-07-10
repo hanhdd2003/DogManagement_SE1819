@@ -734,59 +734,65 @@ public class Service {
 
 // --------------------------------------phan display---------------------------------------
     public void displayDogSale() {
+        
         System.out.println("List Dog Sale: ");
-        System.out.printf("%-6s %10s %10s %12s %10s %16s %17s %10s\n",
+        System.out.println("--------------------------------------------------------------------------------------------------------------------------\n");
+        System.out.printf("%-10s %-15s %-15s %-20s %-15s %-17s %-17s %-10s\n",
                 "DOG ID", "ORIGIN", "GENDER", "DOG BREED",
                 "COLOR", "HEALTH STATUS", "VACCINE STATUS", "PRICE");
         dogSale.forEach((dog) -> {
             dog.display();
         });
-        System.out.println("-----------------------------");
+        System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");    
     }
 
     public void displayDogSend() {
         System.out.println("List Dog Send: ");
-        System.out.printf("%11s %8s %10s %15s %13s %11s %15s %17s %17s %13s %10s\t\n", "CUSTOMER ID",
+        System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
+        System.out.printf("%-13s %-12s %-14s %-9s %-15s %-11s %-14s %-17s %-16s %-14s %-10s\t\n", "CUSTOMER ID",
                 "DOG ID", "NAME", "GENDER", "DOG BREED",
                 "COLOR", "HEALTH STATUS", "VACCINE STATUS",
                 "TIME PICK UP", "TIME SEND", "PRICE");
         dogSend.forEach((dog) -> {
             dog.display();
         });
-        System.out.println("-----------------------------");
+        System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
     }
 
     public void displayCus() {
         System.out.println("List Customer: ");
-        System.out.printf("%8s %10s %10s %18s %15s\n",
+        System.out.println("--------------------------------------------------------------------------------------------------------------------------\n");
+        System.out.printf("%-17s %-20s %-10s %-19s %-20s\n",
                 "CUSTOMER ID", "NAME", "AGE", "PHONE NUMBER",
                 "ADDRESS");
         cus.forEach((cus1) -> {
             cus1.display();
         });
-        System.out.println("-----------------------------");
+        System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
     }
 
     public void displayEmp() {
         System.out.println("List Employee: ");
-        System.out.printf("%8s %10s %10s %10s %17s %15s \n",
+        System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
+        System.out.printf("%-15s %-9s %-20s %-9s %-19s %-18s \n",
                 "EMPLOYEE ID", "DAY", "NAME", "AGE", "PHONE NUMBER",
                 "ADDRESS");
         emp.forEach((emp1) -> {
             emp1.display();
         });
-        System.out.println("-----------------------------");
+        System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
     }
 
     public void displayHistory() {
         //("%10s %10s %12s %8s %12s %15s\n", idHis, price, idCus, idDog, idEmp, currentTime)
         System.out.println("List History: ");
-        System.out.printf("%12s %10s %12s %8s %12s %15s \n",
+        System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
+        System.out.printf("%-17s %-15s %-14s %-12s %-15s %-15s \n",
                 "HISTORY TYPE", "PRICE", "CUSTOMER ID", "DOG ID", "EMPLOYEE ID", "TIME");
         his.forEach((his1) -> {
             his1.display();
         });
-        System.out.println("-----------------------------");
+        System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
     }
 
     //----------------------------------------phần ghi xuống file-------------------------------------------------
@@ -1140,10 +1146,12 @@ public class Service {
     }
 
     public void displayAllFeedback() {
-        System.out.printf("%2s %20s\n", "ID", "FeedBack");
+        System.out.println("-----------------------------------------------------------\n");
+        System.out.printf("%-14s %-20s\n", "ID", "FeedBack");
         feedback.forEach((fb) -> {
             fb.displayFeedback();
         });
+        System.out.println("\n-----------------------------------------------------------\n");
     }
 
     public void reply() {
@@ -1176,13 +1184,15 @@ public class Service {
 
     public void displayReply() {
         try {
-            System.out.println("Enter your ID: ");
+            System.out.print("Enter your ID: ");
             String idCuss = tool.iString();
-            System.out.printf("%10s %15s %24s\n", "ID Customer", "FeedBack", "Reply");
+            System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
+            System.out.printf("%-18s %-25s %-20s\n", "ID Customer", "FeedBack", "Reply");
 
             feedback.stream()
                     .filter(fb -> fb.getIdCustomer().equalsIgnoreCase(idCuss))
                     .forEach(feedback1 -> feedback1.displayreply());
+            System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
         } catch (Exception e) {
             System.err.println("Có lỗi phần hiển thị reply!");
         }
