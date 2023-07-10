@@ -1063,7 +1063,37 @@ public class Service {
     }
 //-------------------------------------phan search-------------------------------------------
 
-   
+    public List<DogForSale>  searchDogSalePrice(double min , double max){
+        return dogSale.stream().filter((dog)->dog.getPrice()>=min&&dog.getPrice()<=max).collect(Collectors.toList());
+    }
+    
+    public List<DogForSale>  searchDogSaleBreed(String breed){
+        return dogSale.stream().filter((dog)->dog.getDogBreed().equalsIgnoreCase(breed)).collect(Collectors.toList());
+    }
+    
+    public List<DogForSale>  searchDogSaleGender(String gender){
+        return dogSale.stream().filter((dog)->dog.getGender().equalsIgnoreCase(gender)).collect(Collectors.toList());
+    }
+    
+    public List<DogForSale>  searchDogSaleAge(double min , double max){
+        return dogSale.stream().filter((dog)->dog.getAge()>=min&&dog.getAge()<=max).collect(Collectors.toList());
+    }
+    
+    public List<DogForSale>  searchDogSaleOrigin(String origin){
+        return dogSale.stream().filter((dog)->dog.getOrigin().equalsIgnoreCase(origin)).collect(Collectors.toList());
+    }
+    
+    public List<DogForSale>  searchDogSaleColor(String color){
+        return dogSale.stream().filter((dog)->dog.getColor().equalsIgnoreCase(color)).collect(Collectors.toList());
+    }
+    
+    public List<DogForSale>  searchDogSaleHealthyStatus(String healthyStatus){
+        return dogSale.stream().filter((dog)->dog.getHealthyStatus().equalsIgnoreCase(healthyStatus)).collect(Collectors.toList());
+    }
+    
+    public List<DogForSale>  searchDogSaleVaccineStatus(String vaccineStatus){
+        return dogSale.stream().filter((dog)->dog.getVaccineStatus().equalsIgnoreCase(vaccineStatus)).collect(Collectors.toList());
+    }
     
     public DogForSale searchDogSale(String id, ArrayList<DogForSale> arrDog) {
         for (DogForSale dog : arrDog) {
