@@ -26,7 +26,6 @@ public class Service {
 
 //--------------------------------------------load dữ liệu------------------------------
     public void loadData() {
-
         try {
             this.readDogSale();
             this.readDogSend();
@@ -202,14 +201,23 @@ public class Service {
                                 "COLOR", "HEALTH STATUS", "VACCINE STATUS", "PRICE");
                         this.searchDogSend(idSend, dogSend).display();
                         System.out.println("You have to pay: " + this.searchDogSend(idSend, dogSend).getPrice());
+                        LocalDateTime now = LocalDateTime.now();
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                        String formattedDateTime = now.format(formatter);
+                        
+                        History temp = new History(3, idCus, idSend, this.seachHis(idCus).getIdEmp(), this.searchDogSend(idSend, dogSend).getPrice(), formattedDateTime);
+                        his.add(temp);
                         dogSend.remove(this.searchDogSend(idSend, dogSend));
+
                         a = false;
                     }
 
                 }
             }
             this.saveDogSend(dogSend);
+            this.saveHistory(his);
         } catch (Exception e) {
+            e.printStackTrace();
             System.err.println("co loi phan pickUpDog()");
         }
     }
@@ -1094,6 +1102,8 @@ public class Service {
         }
         return null;
     }
+
+
 //---------------------------check id da ton tai hay chua-------------------
 
     public boolean checkIdEmp(ArrayList<Employee> arr, String id) {
@@ -1167,20 +1177,19 @@ public class Service {
         }
     }
 
-public void displayReply() {
-    try {
-        System.out.println("Enter your ID: ");
-        String idCuss = tool.iString();
-        System.out.printf("%10s %15s %24s\n", "ID Customer", "FeedBack", "Reply");
+    public void displayReply() {
+        try {
+            System.out.println("Enter your ID: ");
+            String idCuss = tool.iString();
+            System.out.printf("%10s %15s %24s\n", "ID Customer", "FeedBack", "Reply");
 
-        feedback.stream()
-                .filter(fb -> fb.getIdCustomer().equalsIgnoreCase(idCuss))
-                .forEach(feedback1 -> feedback1.displayreply());
-    } catch (Exception e) {
-        System.err.println("Có lỗi phần hiển thị reply!");
+            feedback.stream()
+                    .filter(fb -> fb.getIdCustomer().equalsIgnoreCase(idCuss))
+                    .forEach(feedback1 -> feedback1.displayreply());
+        } catch (Exception e) {
+            System.err.println("Có lỗi phần hiển thị reply!");
+        }
     }
-}
-
 
 //------------------------------------ trả lương --------------------------------
     public void paySalary() {
