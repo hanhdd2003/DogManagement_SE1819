@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import tool.MyTool;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Service {
 
@@ -734,7 +736,7 @@ public class Service {
 
 // --------------------------------------phan display---------------------------------------
     public void displayDogSale() {
-        
+
         System.out.println("List Dog Sale: ");
         System.out.println("--------------------------------------------------------------------------------------------------------------------------\n");
         System.out.printf("%-10s %-15s %-15s %-20s %-15s %-17s %-17s %-10s\n",
@@ -743,7 +745,7 @@ public class Service {
         dogSale.forEach((dog) -> {
             dog.display();
         });
-        System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");    
+        System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
     }
 
     public void displayDogSend() {
@@ -1062,6 +1064,119 @@ public class Service {
         return his;
     }
 //-------------------------------------phan search-------------------------------------------
+
+    public void searchDogSalePrice(double min, double max) {
+        List<DogForSale> temp = dogSale.stream().filter((dog) -> dog.getPrice() >= min && dog.getPrice() <= max).collect(Collectors.toList());
+        System.out.println("List Dog Sale: ");
+        System.out.println("--------------------------------------------------------------------------------------------------------------------------\n");
+        System.out.printf("%-10s %-15s %-15s %-20s %-15s %-17s %-17s %-10s\n",
+                "DOG ID", "ORIGIN", "GENDER", "DOG BREED",
+                "COLOR", "HEALTH STATUS", "VACCINE STATUS", "PRICE");
+        for (DogForSale dogS : temp) {
+            dogS.display();
+        }
+        System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
+
+    }
+
+    public void searchDogSaleBreed(String breed) {
+        List<DogForSale> temp = dogSale.stream().filter((dog) -> dog.getDogBreed().equalsIgnoreCase(breed)).collect(Collectors.toList());
+        System.out.println("List Dog Sale: ");
+        System.out.println("--------------------------------------------------------------------------------------------------------------------------\n");
+        System.out.printf("%-10s %-15s %-15s %-20s %-15s %-17s %-17s %-10s\n",
+                "DOG ID", "ORIGIN", "GENDER", "DOG BREED",
+                "COLOR", "HEALTH STATUS", "VACCINE STATUS", "PRICE");
+        for (DogForSale dogS : temp) {
+            dogS.display();
+        }
+        System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
+
+    }
+
+    public void searchDogSaleGender(String gender) {
+        List<DogForSale> temp = dogSale.stream().filter((dog) -> dog.getGender().equalsIgnoreCase(gender)).collect(Collectors.toList());
+        System.out.println("List Dog Sale: ");
+        System.out.println("--------------------------------------------------------------------------------------------------------------------------\n");
+        System.out.printf("%-10s %-15s %-15s %-20s %-15s %-17s %-17s %-10s\n",
+                "DOG ID", "ORIGIN", "GENDER", "DOG BREED",
+                "COLOR", "HEALTH STATUS", "VACCINE STATUS", "PRICE");
+        for (DogForSale dogS : temp) {
+            dogS.display();
+        }
+        System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
+
+    }
+
+    public void searchDogSaleAge(double min, double max) {
+        List<DogForSale> temp = dogSale.stream().filter((dog) -> dog.getAge() >= min && dog.getAge() <= max).collect(Collectors.toList());
+        System.out.println("List Dog Sale: ");
+        System.out.println("--------------------------------------------------------------------------------------------------------------------------\n");
+        System.out.printf("%-10s %-15s %-15s %-20s %-15s %-17s %-17s %-10s\n",
+                "DOG ID", "ORIGIN", "GENDER", "DOG BREED",
+                "COLOR", "HEALTH STATUS", "VACCINE STATUS", "PRICE");
+        for (DogForSale dogS : temp) {
+            dogS.display();
+        }
+        System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
+
+    }
+
+    public void searchDogSaleOrigin(String origin) {
+        List<DogForSale> temp = dogSale.stream().filter((dog) -> dog.getOrigin().equalsIgnoreCase(origin)).collect(Collectors.toList());
+
+        System.out.println("List Dog Sale: ");
+        System.out.println("--------------------------------------------------------------------------------------------------------------------------\n");
+        System.out.printf("%-10s %-15s %-15s %-20s %-15s %-17s %-17s %-10s\n",
+                "DOG ID", "ORIGIN", "GENDER", "DOG BREED",
+                "COLOR", "HEALTH STATUS", "VACCINE STATUS", "PRICE");
+        for (DogForSale dogS : temp) {
+            dogS.display();
+        }
+        System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
+
+    }
+
+    public void searchDogSaleColor(String color) {
+        List<DogForSale> temp = dogSale.stream().filter((dog) -> dog.getColor().equalsIgnoreCase(color)).collect(Collectors.toList());
+        System.out.println("List Dog Sale: ");
+        System.out.println("--------------------------------------------------------------------------------------------------------------------------\n");
+        System.out.printf("%-10s %-15s %-15s %-20s %-15s %-17s %-17s %-10s\n",
+                "DOG ID", "ORIGIN", "GENDER", "DOG BREED",
+                "COLOR", "HEALTH STATUS", "VACCINE STATUS", "PRICE");
+        for (DogForSale dogS : temp) {
+            dogS.display();
+        }
+        System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
+
+    }
+
+    public void searchDogSaleHealthyStatus(String healthyStatus) {
+        List<DogForSale> temp = dogSale.stream().filter((dog) -> dog.getHealthyStatus().equalsIgnoreCase(healthyStatus)).collect(Collectors.toList());
+        System.out.println("List Dog Sale: ");
+        System.out.println("--------------------------------------------------------------------------------------------------------------------------\n");
+        System.out.printf("%-10s %-15s %-15s %-20s %-15s %-17s %-17s %-10s\n",
+                "DOG ID", "ORIGIN", "GENDER", "DOG BREED",
+                "COLOR", "HEALTH STATUS", "VACCINE STATUS", "PRICE");
+        for (DogForSale dogS : temp) {
+            dogS.display();
+        }
+        System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
+
+    }
+
+    public void searchDogSaleVaccineStatus(String vaccineStatus) {
+        List<DogForSale> temp = dogSale.stream().filter((dog) -> dog.getVaccineStatus().equalsIgnoreCase(vaccineStatus)).collect(Collectors.toList());
+        System.out.println("List Dog Sale: ");
+        System.out.println("--------------------------------------------------------------------------------------------------------------------------\n");
+        System.out.printf("%-10s %-15s %-15s %-20s %-15s %-17s %-17s %-10s\n",
+                "DOG ID", "ORIGIN", "GENDER", "DOG BREED",
+                "COLOR", "HEALTH STATUS", "VACCINE STATUS", "PRICE");
+        for (DogForSale dogS : temp) {
+            dogS.display();
+        }
+        System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
+
+    }
 
     public DogForSale searchDogSale(String id, ArrayList<DogForSale> arrDog) {
         for (DogForSale dog : arrDog) {
