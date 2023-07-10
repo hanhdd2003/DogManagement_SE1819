@@ -204,14 +204,13 @@ public class Service {
                         LocalDateTime now = LocalDateTime.now();
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                         String formattedDateTime = now.format(formatter);
-                        
+
                         History temp = new History(3, idCus, idSend, this.seachHis(idCus).getIdEmp(), this.searchDogSend(idSend, dogSend).getPrice(), formattedDateTime);
                         his.add(temp);
                         dogSend.remove(this.searchDogSend(idSend, dogSend));
 
                         a = false;
                     }
-
                 }
             }
             this.saveDogSend(dogSend);
@@ -1103,9 +1102,7 @@ public class Service {
         return null;
     }
 
-
 //---------------------------check id da ton tai hay chua-------------------
-
     public boolean checkIdEmp(ArrayList<Employee> arr, String id) {
         return arr.stream().anyMatch((emp1) -> (emp1.getEmployeeID().equalsIgnoreCase(id)));
     }
