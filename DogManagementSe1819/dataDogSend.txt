@@ -1,1 +1,4 @@
-CUS1 , 14-04-2023 , 15-5-2023 , HANH , DOG09 , 12 , DUC , DUC , DO , OKE , 3 MUI , 50000.0
+CUS1 , 15-04-2023 , 15-5-2023 , CÚN , SEND1 , 4 , M , Poodle , White , Healthy , 3 Vaccinated , 1500000.0
+CUS2 , 17-05-2023 , 18-5-2023 , GẠO , SEND2 , 1 , F , Bulldog , Fawn , Healthy , Not Vaccinated , 50000.0
+CUS3 , 16-06-2023 , 20-6-2023 , MẬP , SEND3 , 2 , F , Shiba , YELLOW , Healthy , 2 Vaccinated , 200000.0
+CUS4 , 5-7-2023 , 10-7-2023 , ĐEN , SEND4 , 5 , M , French Bulldog , Brindle , Healthy , 3 Vaccinated , 200000.0

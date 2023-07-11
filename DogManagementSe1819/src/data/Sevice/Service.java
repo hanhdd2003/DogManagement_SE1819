@@ -692,6 +692,7 @@ public class Service {
             if (this.checkIdDogSale(dogSale, dogID)) {
                 dogSale.remove(this.searchDogSale(dogID, dogSale));
                 this.saveDogSale(dogSale);
+                System.out.println("Remove complete !");
             } else {
                 System.err.println("Can't find Dog For Sale !");
             }
@@ -706,6 +707,7 @@ public class Service {
         if (this.checkIdDogSend(dogSend, dogID)) {
             dogSend.remove(this.searchDogSend(dogID, dogSend));
             this.saveDogSend(dogSend);
+            System.out.println("Remove complete !");
         } else {
             System.err.println("Can't find Dog For Send !");
         }
@@ -717,6 +719,7 @@ public class Service {
         if (this.checkIdCus(cus, customerID)) {
             cus.remove(searchCus(customerID, cus));
             this.saveCustomer(cus);
+            System.out.println("Remove complete !");
         } else {
             System.err.println("Can't find Customer !");
         }
@@ -729,6 +732,7 @@ public class Service {
         if (this.checkIdEmp(emp, employeeID)) {
             emp.remove(seachEmp(employeeID, emp));
             this.saveEmployee(emp);
+            System.out.println("Remove complete !");
         } else {
             System.err.println("Can't find Employee !");
         }
@@ -845,30 +849,32 @@ public class Service {
             boolean a = true;
             while (a) {
                 System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
-            }
 
-            System.out.println("You want to check:");
-            System.out.println("1. History sale.");
-            System.out.println("2. History send.");
-            System.out.println("3. History pick up.");
-            System.out.println("0. Exit");
+                System.out.println("You want to check:");
+                System.out.println("1. History sale.");
+                System.out.println("2. History send.");
+                System.out.println("3. History pick up.");
+                System.out.println("0. Exit");
 
-            System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
-            System.out.print("Your choice: ");
-            int choice = tool.iInt();
-            switch (choice) {
-                case 1:
-                    displayHistorySale();
-                    break;
-                case 2:
-                    displayHistorySend();
-                    break;
-                case 3:
-                    displayHistoryPickUp();
-                    break;
-                case 4:
-                    a = false;
-                    break;
+                System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
+                System.out.print("Your choice: ");
+                int choice = tool.iInt();
+                switch (choice) {
+                    case 1:
+                        displayHistorySale();
+                        break;
+                    case 2:
+                        displayHistorySend();
+                        break;
+                    case 3:
+                        displayHistoryPickUp();
+                        break;
+                    case 0:
+                        a = false;
+                        break;
+                    default:
+                        break;
+                }
             }
         } catch (Exception e) {
         }
@@ -1046,13 +1052,18 @@ public class Service {
             String line;
             while (((line = reader.readLine()) != null)) {
                 try {
+                    // có 7 phần
                     String[] parts = line.split(" , ");
                     String customerID = parts[0];
                     String name = parts[1];
                     int age = Integer.parseInt(parts[2]);
                     String phoneNumber = parts[3];
                     String address = parts[4];
+                    String feedBack = parts.length > 5 ? parts[5] : "";
+                    String reply = parts.length > 6 ? parts[6] : "";
                     Customer dg = new Customer(customerID, name, age, phoneNumber, address);
+                    dg.setFeedBack(feedBack);
+                    dg.setReply(reply);
                     if (cus == null) {
                         cus = new ArrayList<>();
                     }
@@ -1079,9 +1090,12 @@ public class Service {
                     int age = Integer.parseInt(parts[3]);
                     String phoneNumber = parts[4];
                     String address = parts[5];
-
+                    double bonus = parts.length > 6 ? Double.parseDouble(parts[6]) : 0;
+                    double salary = parts.length > 7 ? Double.parseDouble(parts[7]) : 0;
                     Employee dg = new Employee(employeeID, name, age, phoneNumber, address);
                     dg.setDayNumber(dayNumber);
+                    dg.setBonus(bonus);
+                    dg.setSalary(salary);
                     if (emp == null) {
                         emp = new ArrayList<>();
                     }
@@ -1255,6 +1269,7 @@ public class Service {
 
     }
 
+    //-----------------------------------------------------------------------------------
     public DogForSale searchDogSale(String id, ArrayList<DogForSale> arrDog) {
         for (DogForSale dog : arrDog) {
             if (id.equalsIgnoreCase(dog.getDogID())) {

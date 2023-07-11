@@ -1,7 +1,5 @@
 package data.person;
 
-import data.Sevice.Service;
-
 public class Manager extends Person {
 
     private String managerID;
@@ -29,20 +27,7 @@ public class Manager extends Person {
 
     @Override
     public String toString() {
-        return this.managerID+" , "+super.toString();
-    }
-    public void checkDog(){
-        Service sv = new Service();
-        sv.displayDogSale();
-        sv.displayDogSend();
-    }
-    public void checkEmployee(){
-        Service sv = new Service();
-        sv.displayEmp();
-    }
-    public void checkCustomer(){
-        Service sv = new Service();
-        sv.displayCus();
+        return this.managerID + " , " + super.toString();
     }
 
 }

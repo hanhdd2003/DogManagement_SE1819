@@ -2,7 +2,8 @@ package data.person;
 
 public class Customer extends Person {
     private String customerID;
-
+    private String feedBack;
+    private String reply;
     public Customer() {
     }
 
@@ -11,6 +12,24 @@ public class Customer extends Person {
         this.customerID = customerID;
     }
 
+    public String getFeedBack() {
+        return feedBack;
+    }
+
+    public void setFeedBack(String feedBack) {
+        this.feedBack = feedBack;
+    }
+
+    public String getReply() {
+        return reply;
+    }
+
+    public void setReply(String reply) {
+        this.reply = reply;
+    }
+    
+    
+    
     public String getCustomerID() {
         return customerID;
     }
@@ -28,7 +47,7 @@ public class Customer extends Person {
 
     @Override
     public String toString() {
-        return this.customerID + " , " + super.toString();
+        return this.customerID + " , " + super.toString()+" , "+this.feedBack+" , "+this.reply;
     }
 
 }
