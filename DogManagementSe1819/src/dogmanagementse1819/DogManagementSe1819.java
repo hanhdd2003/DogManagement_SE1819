@@ -14,8 +14,11 @@ public class DogManagementSe1819 {
 
 //        Service sv = new Service();
 //        sv.loadData();
-////        sv.displayDogSale();
-//        sv.displayReply();
+//        sv.displayDogSale();
+//        sv.displayDogSend();
+//        sv.displayCus();
+//        sv.displayEmp();
+//        sv.displayAllFeedback();
 //------------------------------xử lý phần đăng nhập--------------------------------
         boolean a = true;
         String choice;

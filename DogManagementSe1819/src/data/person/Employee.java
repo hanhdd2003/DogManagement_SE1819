@@ -55,7 +55,7 @@ public class Employee extends Person {
 
     @Override
     public String toString() {
-        return this.employeeID+" , "+this.dayNumber+" , "+super.toString()+" , "+this.bonus+" , "+this.salary;
+        return this.employeeID+" , "+this.dayNumber+" , "+super.toString()+" , "+this.getBonus()+" , "+this.getSalary();
     }
     
 }

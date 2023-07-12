@@ -111,10 +111,10 @@ public class Menu {
     public void menuManager() { // 01 là quản lý
         while (choice) {
             System.out.println("-----------------------------MENU-----------------------------");
-            System.out.println("1. Check Dog Sale.");
-            System.out.println("2. Check Dog Send.");
-            System.out.println("3. Check Customer.");
-            System.out.println("4. Check Employee.");
+            System.out.println("1. List Dog Sale.");
+            System.out.println("2. List Dog Send.");
+            System.out.println("3. List Customer.");
+            System.out.println("4. List Employee.");
             System.out.println("5. Check History.");
             System.out.println("6. Add Dog Sale.");
             System.out.println("7. Add Employee.");

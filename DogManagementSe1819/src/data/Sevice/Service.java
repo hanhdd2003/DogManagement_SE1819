@@ -114,8 +114,9 @@ public class Service {
                 //kiem tra id hop le
                 if (this.searchCus(idCus, cus) == null) {
                     System.err.println("Customer ID not exit !!");
-                    Customer cusTemp = this.inputCustomer();
-                    cus.add(cusTemp);
+                    System.out.println("Add new customer:");
+                    this.inputCustomer();
+                    
                 }
                 // nhap cho
                 System.out.print("Input ID Dog Send: ");
@@ -154,7 +155,7 @@ public class Service {
                     DogForSend sendTemp = new DogForSend(idCus, timeSend, timePickUp, name, idSend, age, gender, dogBreed, color, healthyStatus, vaccineStatus, price);
                     dogSend.add(sendTemp);
                     this.displayEmp();
-                    System.out.println("Input ID Employee: ");
+                    System.out.print("Input ID Employee: ");
                     String idEmp = tool.iString();
                     if (this.checkIdEmp(emp, idEmp)) {
                         LocalDateTime now = LocalDateTime.now();
@@ -195,9 +196,11 @@ public class Service {
                     System.out.print("Input ID dog send: ");
                     String idSend = tool.iString();
                     if (this.checkIdDogSend(dogSend, idSend)) {
-                        System.out.printf("%-6s %10s %10s %12s %10s %16s %17s %10s\n",
-                                "DOG ID", "ORIGIN", "GENDER", "DOG BREED",
-                                "COLOR", "HEALTH STATUS", "VACCINE STATUS", "PRICE");
+                        System.out.printf("%-13s %-12s %-14s %-8s %-8s %-18s %-11s %-14s %-17s %-16s %-14s %-13s\n",
+                                "CUSTOMER ID",
+                                "DOG ID", "NAME", "AGE", "GENDER", "DOG BREED",
+                                "COLOR", "HEALTH STATUS", "VACCINE STATUS",
+                                "TIME PICK UP", "TIME SEND", "PRICE");
                         this.searchDogSend(idSend, dogSend).display();
                         System.out.println("You have to pay: " + this.searchDogSend(idSend, dogSend).getPrice());
                         LocalDateTime now = LocalDateTime.now();
@@ -320,7 +323,7 @@ public class Service {
 
                     cus.add(new Customer(customerID, name, age, phoneNumber, address));
                     System.out.println("Add customer successfuly!!");
-                    this.saveCustomer(cus);
+                    
                     a = false;
                     return new Customer(customerID, name, age, phoneNumber, address);
                 }
@@ -740,7 +743,7 @@ public class Service {
 
         System.out.println("List Dog Sale: ");
         System.out.println("--------------------------------------------------------------------------------------------------------------------------\n");
-        System.out.printf("%-10s %-15s %-15s %-15s %-20s %-15s %-17s %-17s %-10s\n",
+        System.out.printf("%-10s %-15s %-8s %-8s %-20s %-15s %-17s %-17s %-10s\n",
                 "DOG ID", "ORIGIN", "AGE", "GENDER", "DOG BREED",
                 "COLOR", "HEALTH STATUS", "VACCINE STATUS", "PRICE");
         dogSale.forEach((dog) -> {
@@ -752,7 +755,8 @@ public class Service {
     public void displayDogSend() {
         System.out.println("List Dog Send: ");
         System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
-        System.out.printf("%-13s %-12s %-14s %-15s %-9s %-15s %-11s %-14s %-17s %-16s %-14s %-10s\t\n", "CUSTOMER ID",
+        System.out.printf("%-13s %-12s %-14s %-8s %-8s %-18s %-11s %-14s %-17s %-16s %-14s %-10s\t\n", 
+                "CUSTOMER ID",
                 "DOG ID", "NAME", "AGE", "GENDER", "DOG BREED",
                 "COLOR", "HEALTH STATUS", "VACCINE STATUS",
                 "TIME PICK UP", "TIME SEND", "PRICE");
@@ -788,7 +792,7 @@ public class Service {
 
     public void displayHistorySale() {
         //("%10s %10s %12s %8s %12s %15s\n", idHis, price, idCus, idDog, idEmp, currentTime)
-        System.out.println("List History: ");
+        System.out.println("List History Sale: ");
         System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
         System.out.printf("%-17s %-15s %-14s %-12s %-15s %-15s \n",
                 "HISTORY TYPE", "PRICE", "CUSTOMER ID", "DOG ID", "EMPLOYEE ID", "TIME");
@@ -804,7 +808,7 @@ public class Service {
 
     public void displayHistorySend() {
         //("%10s %10s %12s %8s %12s %15s\n", idHis, price, idCus, idDog, idEmp, currentTime)
-        System.out.println("List History: ");
+        System.out.println("List History Send: ");
         System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
         System.out.printf("%-17s %-15s %-14s %-12s %-15s %-15s \n",
                 "HISTORY TYPE", "PRICE", "CUSTOMER ID", "DOG ID", "EMPLOYEE ID", "TIME");
@@ -820,7 +824,7 @@ public class Service {
 
     public void displayHistoryPickUp() {
         //("%10s %10s %12s %8s %12s %15s\n", idHis, price, idCus, idDog, idEmp, currentTime)
-        System.out.println("List History: ");
+        System.out.println("List History Pick Up: ");
         System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
         System.out.printf("%-17s %-15s %-14s %-12s %-15s %-15s \n",
                 "HISTORY TYPE", "PRICE", "CUSTOMER ID", "DOG ID", "EMPLOYEE ID", "TIME");
@@ -1122,8 +1126,8 @@ public class Service {
         int choice;
         while (a) {
             System.out.println("-----------------------------------------------------");
-            System.out.println("1. Search Price. \n2. Search Breed. \n3. Search Gender. \n4.Search Age. \n5. Search Origin."
-                    + " \n6. Search Color. \n7. Search Healthy. \n8. Search vaccine.\n");
+            System.out.println("1. Search Price. \n2. Search Breed. \n3. Search Gender. \n4. Search Age. \n5. Search Origin."
+                    + " \n6. Search Color. \n7. Search Healthy. \n8. Search vaccine.\n0. Exit.\n");
             System.out.print("Your choice: ");
             choice = tool.iInt();
             switch (choice) {
@@ -1161,15 +1165,15 @@ public class Service {
     }
 
     public void searchDogSalePrice() {
-        System.out.println("Enter min price: ");
+        System.out.print("Enter min price: ");
         double min = tool.iDouble();
-        System.out.println("Enter max price: ");
+        System.out.print("Enter max price: ");
         double max = tool.iDouble();
         List<DogForSale> temp = dogSale.stream().filter((dog) -> dog.getPrice() >= min && dog.getPrice() <= max).collect(Collectors.toList());
         System.out.println("List Dog Sale: ");
         System.out.println("--------------------------------------------------------------------------------------------------------------------------\n");
-        System.out.printf("%-10s %-15s %-15s %-20s %-15s %-17s %-17s %-10s\n",
-                "DOG ID", "ORIGIN", "GENDER", "DOG BREED",
+        System.out.printf("%-10s %-15s %-8s %-8s %-20s %-15s %-17s %-17s %-10s\n",
+                "DOG ID", "ORIGIN", "AGE", "GENDER", "DOG BREED",
                 "COLOR", "HEALTH STATUS", "VACCINE STATUS", "PRICE");
         temp.forEach((dogS) -> {
             dogS.display();
@@ -1179,13 +1183,13 @@ public class Service {
     }
 
     public void searchDogSaleBreed() {
-        System.out.println("Enter breed: ");
+        System.out.print("Enter breed: ");
         String breed = tool.iString();
         List<DogForSale> temp = dogSale.stream().filter((dog) -> dog.getDogBreed().equalsIgnoreCase(breed)).collect(Collectors.toList());
         System.out.println("List Dog Sale: ");
         System.out.println("--------------------------------------------------------------------------------------------------------------------------\n");
-        System.out.printf("%-10s %-15s %-15s %-20s %-15s %-17s %-17s %-10s\n",
-                "DOG ID", "ORIGIN", "GENDER", "DOG BREED",
+        System.out.printf("%-10s %-15s %-8s %-8s %-20s %-15s %-17s %-17s %-10s\n",
+                "DOG ID", "ORIGIN", "AGE", "GENDER", "DOG BREED",
                 "COLOR", "HEALTH STATUS", "VACCINE STATUS", "PRICE");
         temp.forEach((dogS) -> {
             dogS.display();
@@ -1195,13 +1199,13 @@ public class Service {
     }
 
     public void searchDogSaleGender() {
-        System.out.println("Enter gender: ");
+        System.out.print("Enter gender: ");
         String gender = tool.iString();
         List<DogForSale> temp = dogSale.stream().filter((dog) -> dog.getGender().equalsIgnoreCase(gender)).collect(Collectors.toList());
         System.out.println("List Dog Sale: ");
         System.out.println("--------------------------------------------------------------------------------------------------------------------------\n");
-        System.out.printf("%-10s %-15s %-15s %-20s %-15s %-17s %-17s %-10s\n",
-                "DOG ID", "ORIGIN", "GENDER", "DOG BREED",
+        System.out.printf("%-10s %-15s %-8s %-8s %-20s %-15s %-17s %-17s %-10s\n",
+                "DOG ID", "ORIGIN", "AGE", "GENDER", "DOG BREED",
                 "COLOR", "HEALTH STATUS", "VACCINE STATUS", "PRICE");
         temp.forEach((dogS) -> {
             dogS.display();
@@ -1211,15 +1215,15 @@ public class Service {
     }
 
     public void searchDogSaleAge() {
-        System.out.println("Enter age min: ");
+        System.out.print("Enter age min: ");
         double min = tool.iDouble();
-        System.out.println("Enter age max: ");
+        System.out.print("Enter age max: ");
         double max = tool.iDouble();
         List<DogForSale> temp = dogSale.stream().filter((dog) -> dog.getAge() >= min && dog.getAge() <= max).collect(Collectors.toList());
         System.out.println("List Dog Sale: ");
         System.out.println("--------------------------------------------------------------------------------------------------------------------------\n");
-        System.out.printf("%-10s %-15s %-15s %-20s %-15s %-17s %-17s %-10s\n",
-                "DOG ID", "ORIGIN", "GENDER", "DOG BREED",
+        System.out.printf("%-10s %-15s %-8s %-8s %-20s %-15s %-17s %-17s %-10s\n",
+                "DOG ID", "ORIGIN", "AGE", "GENDER", "DOG BREED",
                 "COLOR", "HEALTH STATUS", "VACCINE STATUS", "PRICE");
         temp.forEach((dogS) -> {
             dogS.display();
@@ -1229,14 +1233,14 @@ public class Service {
     }
 
     public void searchDogSaleOrigin() {
-        System.out.println("Enter Origin: ");
+        System.out.print("Enter Origin: ");
         String origin = tool.iString();
         List<DogForSale> temp = dogSale.stream().filter((dog) -> dog.getOrigin().equalsIgnoreCase(origin)).collect(Collectors.toList());
 
         System.out.println("List Dog Sale: ");
         System.out.println("--------------------------------------------------------------------------------------------------------------------------\n");
-        System.out.printf("%-10s %-15s %-15s %-20s %-15s %-17s %-17s %-10s\n",
-                "DOG ID", "ORIGIN", "GENDER", "DOG BREED",
+        System.out.printf("%-10s %-15s %-8s %-8s %-20s %-15s %-17s %-17s %-10s\n",
+                "DOG ID", "ORIGIN", "AGE", "GENDER", "DOG BREED",
                 "COLOR", "HEALTH STATUS", "VACCINE STATUS", "PRICE");
         temp.forEach((dogS) -> {
             dogS.display();
@@ -1246,13 +1250,13 @@ public class Service {
     }
 
     public void searchDogSaleColor() {
-        System.out.println("Enter color: ");
+        System.out.print("Enter color: ");
         String color = tool.iString();
         List<DogForSale> temp = dogSale.stream().filter((dog) -> dog.getColor().equalsIgnoreCase(color)).collect(Collectors.toList());
         System.out.println("List Dog Sale: ");
         System.out.println("--------------------------------------------------------------------------------------------------------------------------\n");
-        System.out.printf("%-10s %-15s %-15s %-20s %-15s %-17s %-17s %-10s\n",
-                "DOG ID", "ORIGIN", "GENDER", "DOG BREED",
+        System.out.printf("%-10s %-15s %-8s %-8s %-20s %-15s %-17s %-17s %-10s\n",
+                "DOG ID", "ORIGIN", "AGE", "GENDER", "DOG BREED",
                 "COLOR", "HEALTH STATUS", "VACCINE STATUS", "PRICE");
         temp.forEach((dogS) -> {
             dogS.display();
@@ -1262,13 +1266,13 @@ public class Service {
     }
 
     public void searchDogSaleHealthyStatus() {
-        System.out.println("Enter Healthy: ");
+        System.out.print("Enter Healthy: ");
         String healthyStatus = tool.iString();
         List<DogForSale> temp = dogSale.stream().filter((dog) -> dog.getHealthyStatus().equalsIgnoreCase(healthyStatus)).collect(Collectors.toList());
         System.out.println("List Dog Sale: ");
         System.out.println("--------------------------------------------------------------------------------------------------------------------------\n");
-        System.out.printf("%-10s %-15s %-15s %-20s %-15s %-17s %-17s %-10s\n",
-                "DOG ID", "ORIGIN", "GENDER", "DOG BREED",
+        System.out.printf("%-10s %-15s %-8s %-8s %-20s %-15s %-17s %-17s %-10s\n",
+                "DOG ID", "ORIGIN", "AGE", "GENDER", "DOG BREED",
                 "COLOR", "HEALTH STATUS", "VACCINE STATUS", "PRICE");
         temp.forEach((dogS) -> {
             dogS.display();
@@ -1278,13 +1282,13 @@ public class Service {
     }
 
     public void searchDogSaleVaccineStatus() {
-        System.out.println("Enter Vaccine: ");
+        System.out.print("Enter Vaccine: ");
         String vaccineStatus = tool.iString();
         List<DogForSale> temp = dogSale.stream().filter((dog) -> dog.getVaccineStatus().equalsIgnoreCase(vaccineStatus)).collect(Collectors.toList());
         System.out.println("List Dog Sale: ");
         System.out.println("--------------------------------------------------------------------------------------------------------------------------\n");
-        System.out.printf("%-10s %-15s %-15s %-20s %-15s %-17s %-17s %-10s\n",
-                "DOG ID", "ORIGIN", "GENDER", "DOG BREED",
+        System.out.printf("%-10s %-15s %-8s %-8s %-20s %-15s %-17s %-17s %-10s\n",
+                "DOG ID", "ORIGIN", "AGE", "GENDER", "DOG BREED",
                 "COLOR", "HEALTH STATUS", "VACCINE STATUS", "PRICE");
         for (DogForSale dogS : temp) {
             dogS.display();

@@ -1,4 +1,14 @@
-CUS1 , 15-04-2023 , 15-5-2023 , CÚN , SEND1 , 4 , M , Poodle , White , Healthy , 3 Vaccinated , 1500000.0
-CUS2 , 17-05-2023 , 18-5-2023 , GẠO , SEND2 , 1 , F , Bulldog , Fawn , Healthy , Not Vaccinated , 50000.0
-CUS3 , 16-06-2023 , 20-6-2023 , MẬP , SEND3 , 2 , F , Shiba , YELLOW , Healthy , 2 Vaccinated , 200000.0
-CUS4 , 5-7-2023 , 10-7-2023 , ĐEN , SEND4 , 5 , M , French Bulldog , Brindle , Healthy , 3 Vaccinated , 200000.0
+CUS1 , 15-04-2023 , 15-05-2023 , CÚN , SEND1 , 4 , M , Poodle , White , Healthy , 3 Vaccinated , 1500000.0
+CUS2 , 17-05-2023 , 18-05-2023 , GẠO , SEND2 , 1 , F , Bulldog , Fawn , Healthy , Not Vaccinated , 50000.0
+CUS3 , 16-06-2023 , 20-06-2023 , MẬP , SEND3 , 2 , F , Shiba , Yellow , Healthy , 2 Vaccinated , 200000.0
+CUS4 , 05-07-2023 , 10-07-2023 , ĐEN , SEND4 , 5 , M , French Bulldog , Brindle , Healthy , 3 Vaccinated , 200000.0
+CUS5 , 04-05-2023 , 10-05-2023 , NẤM , SEND5 , 3 , M , Poodle , Black , Not Healthy , 1 Vaccinated , 300000.0
+CUS6 , 12-08-2023 , 15-08-2023 , BÒ , SEND6 , 2 , F , Golden Retriever , Golden , Healthy , 2 Vaccinated , 800000.0
+CUS7 , 20-09-2023 , 25-09-2023 , CHIM , SEND7 , 1 , F , Dachshund , Green , Healthy , Not Vaccinated , 100000.0
+CUS8 , 05-10-2023 , 10-10-2023 , MÈO , SEND8 , 4 , F , Poodle , Seal Point , Healthy , 3 Vaccinated , 500000.0
+CUS9 , 18-11-2023 , 20-11-2023 , RÙA , SEND9 , 1 , F , Samoyed , Brown , Healthy , Not Vaccinated , 20000.0
+CUS1 , 25-12-2023 , 01-01-2024 , HEO , SEND10 , 3 , F , Poodle , Pink , Healthy , 1 Vaccinated , 150000.0
+CUS6 , 02-01-2024 , 05-01-2024 , RẮN , SEND11 , 1 , F , Beagle , Brown , Healthy , Not Vaccinated , 5000.0
+CUS5 , 15-02-2024 , 20-02-2024 , CÁ , SEND12 , 2 , F , Golden Retriever , Orange , Healthy , Not Vaccinated , 1000.0
+CUS2 , 10-03-2024 , 15-03-2024 , HEO , SEND13 , 1 , F , Pitbull , Black , Healthy , Not Vaccinated , 1200000.0
+CUS2 , 08-04-2024 , 10-04-2024 , THỎ , SEND14 , 2 , F , Pomeranian , White , Healthy , 1 Vaccinated , 50000.0
