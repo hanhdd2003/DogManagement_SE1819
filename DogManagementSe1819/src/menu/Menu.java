@@ -62,10 +62,10 @@ public class Menu {
             System.out.println("3. Check Dog Sale.");
             System.out.println("4. Check Dog Send.");
             System.out.println("5. Check Customer.");
-            System.out.println("6. Support Customer.");
-            System.out.println("7. Fix infomation of dog sale.");
-            System.out.println("8. Fix infomation of dog send.");
-            System.out.println("9. Fix infomation of Customer.");
+            System.out.println("6. Check History.");
+            System.out.println("7. Fix infomation of dog send.");
+            System.out.println("8. Fix infomation of Customer.");
+            System.out.println("9. Support Customer");
             System.out.println("0. Exit");
             System.out.println("----------------------------------------------------------------\n");
             
@@ -91,20 +91,23 @@ public class Menu {
                     sv.displayCus();
                     break;
                 case 6:
-                    sv.reply();
+                    sv.displayHistory();
                     break;
                 case 7:
-                    sv.fixInfoDogSale();
-                    break;
-                case 8:
                     sv.fixInfoDogSend();
                     break;
-                case 9:
+                case 8:
                     sv.fixInfoCus();
+                    break;
+                case 9:
+                    sv.reply();
+                    break;
+                default:
                     break;
             }
         }
     }
+    
     public void menuManager() { // 01 là quản lý
         while (choice) {
             System.out.println("-----------------------------MENU-----------------------------");
@@ -112,14 +115,17 @@ public class Menu {
             System.out.println("2. Check Dog Send.");
             System.out.println("3. Check Customer.");
             System.out.println("4. Check Employee.");
-            System.out.println("5. Add Dog Sale.");
-            System.out.println("6. Remove Dog Sale.");
+            System.out.println("5. Check History.");
+            System.out.println("6. Add Dog Sale.");
             System.out.println("7. Add Employee.");
-            System.out.println("8. Remove Employee.");
-            System.out.println("9. Pay Salery.");
-            System.out.println("10. Statistical.");
-            System.out.println("11. Reply Feedback.");
-            System.out.println("12. Check history. ");
+            System.out.println("8. Remove Dog Sale.");
+            System.out.println("9. Remove Employee.");
+            System.out.println("10. Fix infomation of dog sale.");
+            System.out.println("11. Fix infomation of Employee.");
+            System.out.println("12. Reply Feedback. ");
+            System.out.println("13. Set Day For Employee");
+            System.out.println("14. Pay salary");
+            System.out.println("15. Statics");
             System.out.println("0. Exit");
             System.out.println("--------------------------------------------------------------\n");       
             System.out.print("Your choice: ");
@@ -141,27 +147,39 @@ public class Menu {
                     sv.displayEmp();
                     break;
                 case 5:
-                    sv.inputDogSale();
+                    sv.displayHistory();
                     break;
                 case 6:
-                    sv.removeDogSale();
+                    sv.inputDogSale();
                     break;
                 case 7:
                     sv.inputEmployee();
                     break;
                 case 8:
-                    sv.removeEmployee();
+                    sv.removeDogSale();
                     break;
                 case 9:
-
+                    sv.removeEmployee();
+                    break;
                 case 10:
-                    sv.paySalary();
+                    sv.fixInfoDogSale();
                     break;
                 case 11:
-                    sv.reply();
+                    sv.fixInfoEmp();
                     break;
                 case 12:
-                    sv.displayHistory();
+                    sv.reply();
+                    break;
+                case 13:
+                    sv.setDayForEmployee();
+                    break;
+                case 14:
+                    sv.paySalary();
+                    break;
+                case 15: 
+                    sv.moneyFromHis();
+                    break;
+                default:
                     break;
             }
         }

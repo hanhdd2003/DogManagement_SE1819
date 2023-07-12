@@ -741,7 +741,7 @@ public class Service {
         System.out.println("List Dog Sale: ");
         System.out.println("--------------------------------------------------------------------------------------------------------------------------\n");
         System.out.printf("%-10s %-15s %-15s %-15s %-20s %-15s %-17s %-17s %-10s\n",
-                "DOG ID", "ORIGIN","AGE", "GENDER", "DOG BREED",
+                "DOG ID", "ORIGIN", "AGE", "GENDER", "DOG BREED",
                 "COLOR", "HEALTH STATUS", "VACCINE STATUS", "PRICE");
         dogSale.forEach((dog) -> {
             dog.display();
@@ -753,7 +753,7 @@ public class Service {
         System.out.println("List Dog Send: ");
         System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
         System.out.printf("%-13s %-12s %-14s %-15s %-9s %-15s %-11s %-14s %-17s %-16s %-14s %-10s\t\n", "CUSTOMER ID",
-                "DOG ID", "NAME","AGE", "GENDER", "DOG BREED",
+                "DOG ID", "NAME", "AGE", "GENDER", "DOG BREED",
                 "COLOR", "HEALTH STATUS", "VACCINE STATUS",
                 "TIME PICK UP", "TIME SEND", "PRICE");
         dogSend.forEach((dog) -> {
@@ -845,6 +845,7 @@ public class Service {
                 System.out.println("1. History sale.");
                 System.out.println("2. History send.");
                 System.out.println("3. History pick up.");
+                System.out.println("4. All History.");
                 System.out.println("0. Exit");
 
                 System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
@@ -852,13 +853,18 @@ public class Service {
                 int choice = tool.iInt();
                 switch (choice) {
                     case 1:
-                        displayHistorySale();
+                        this.displayHistorySale();
                         break;
                     case 2:
-                        displayHistorySend();
+                        this.displayHistorySend();
                         break;
                     case 3:
-                        displayHistoryPickUp();
+                        this.displayHistoryPickUp();
+                        break;
+                    case 4:
+                        this.displayHistorySale();
+                        this.displayHistorySend();
+                        this.displayHistoryPickUp();
                         break;
                     case 0:
                         a = false;
@@ -1090,7 +1096,6 @@ public class Service {
     }
 
 // --------------------------------------- phần lấy dữ liệu danh sách---------------------------------
-
     public ArrayList<DogForSale> getDogForSale() {
         return dogSale;
     }
@@ -1359,7 +1364,8 @@ public class Service {
             if (this.checkIdCus(cus, id)) {
                 System.out.println("Send your feedback: ");
                 String feedBack = tool.iString();
-                
+                this.searchCus(id, cus).setFeedBack(feedBack);
+                this.saveCustomer(cus);
                 System.out.println("Send feedback successful!");
             } else {
                 System.err.println("ID Customer does not exist!");
@@ -1372,7 +1378,9 @@ public class Service {
     public void displayAllFeedback() {
         System.out.println("-----------------------------------------------------------\n");
         System.out.printf("%-14s %-20s\n", "ID", "FeedBack");
-        
+        cus.forEach((cus1) -> {
+            System.out.printf("%-14s %-20s\n", cus1.getCustomerID(), cus1.getFeedBack());
+        });
         System.out.println("\n-----------------------------------------------------------\n");
     }
 
@@ -1381,14 +1389,12 @@ public class Service {
             this.displayAllFeedback();
             System.out.println("Enter Customer ID to reply to: ");
             String cusID = tool.iString();
-            boolean isCustomerExist = false;
-
-            
-
-            if (isCustomerExist) {
-                System.out.println("Reply sent successfully!");
-            } else {
-                System.err.println("Customer does not exist!");
+            if (this.checkIdCus(cus, cusID) && this.searchCus(cusID, cus).getFeedBack() != null) {
+                System.out.println("Enter your reply!");
+                String reply = tool.iString();
+                this.searchCus(cusID, cus).setReply(reply);
+                this.saveCustomer(cus);
+                System.out.println("Sent reply complete!");
             }
         } catch (Exception e) {
             System.err.println("có lỗi phần reply!");
@@ -1401,8 +1407,12 @@ public class Service {
             String idCuss = tool.iString();
             System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
             System.out.printf("%-18s %-25s %-20s\n", "ID Customer", "FeedBack", "Reply");
-
-            
+            if (this.checkIdCus(cus, idCuss) && this.searchCus(idCuss, cus).getReply() != null) {
+                System.out.format("%-18s %-25s %-20s\n", this.searchCus(idCuss, cus).getCustomerID(),
+                        this.searchCus(idCuss, cus).getFeedBack(),this.searchCus(idCuss, cus).getReply());
+            } else {
+                System.out.println("Have no reply!");
+            }
             System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
         } catch (Exception e) {
             System.err.println("Có lỗi phần hiển thị reply!");
@@ -1439,10 +1449,10 @@ public class Service {
             List<History> tempHis2 = his.stream().filter((his1) -> his1.getType().equalsIgnoreCase("SEND DOG")).collect(Collectors.toList());
             double moneySend = 0;
             moneySend = tempHis2.stream().map((his1) -> his1.getPrice()).reduce(moneySend, (accumulator, _item) -> accumulator + _item);
-            
+
             System.out.println("Money Sale Dog: " + moneySale);
-            System.out.println("Moner Send Dog: "+moneySend);
-            System.out.println("Sum money: "+(moneySale+moneySend));
+            System.out.println("Moner Send Dog: " + moneySend);
+            System.out.println("Sum money: " + (moneySale + moneySend));
 
         } catch (Exception e) {
             System.err.println("co loi phan moneyFromHis()");
