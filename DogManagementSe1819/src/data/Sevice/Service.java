@@ -4,7 +4,6 @@ import data.dog.*;
 import data.history.History;
 import data.person.Customer;
 import data.person.Employee;
-import data.person.Feedback;
 import java.io.*;
 import java.util.ArrayList;
 import tool.MyTool;
@@ -21,7 +20,6 @@ public class Service {
     private ArrayList<Customer> cus = new ArrayList<>();
     private ArrayList<Employee> emp = new ArrayList<>();
     private ArrayList<History> his = new ArrayList<>();
-    private ArrayList<Feedback> feedback = new ArrayList<>();
 
     public Service() {
     }
@@ -34,7 +32,6 @@ public class Service {
             this.readCustomer();
             this.readEmployee();
             this.readHistory();
-            this.readFeedback();
         } catch (Exception e) {
             System.err.println("co loi roi hi hi");
         }
@@ -743,8 +740,8 @@ public class Service {
 
         System.out.println("List Dog Sale: ");
         System.out.println("--------------------------------------------------------------------------------------------------------------------------\n");
-        System.out.printf("%-10s %-15s %-15s %-20s %-15s %-17s %-17s %-10s\n",
-                "DOG ID", "ORIGIN", "GENDER", "DOG BREED",
+        System.out.printf("%-10s %-15s %-15s %-15s %-20s %-15s %-17s %-17s %-10s\n",
+                "DOG ID", "ORIGIN","AGE", "GENDER", "DOG BREED",
                 "COLOR", "HEALTH STATUS", "VACCINE STATUS", "PRICE");
         dogSale.forEach((dog) -> {
             dog.display();
@@ -755,8 +752,8 @@ public class Service {
     public void displayDogSend() {
         System.out.println("List Dog Send: ");
         System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
-        System.out.printf("%-13s %-12s %-14s %-9s %-15s %-11s %-14s %-17s %-16s %-14s %-10s\t\n", "CUSTOMER ID",
-                "DOG ID", "NAME", "GENDER", "DOG BREED",
+        System.out.printf("%-13s %-12s %-14s %-15s %-9s %-15s %-11s %-14s %-17s %-16s %-14s %-10s\t\n", "CUSTOMER ID",
+                "DOG ID", "NAME","AGE", "GENDER", "DOG BREED",
                 "COLOR", "HEALTH STATUS", "VACCINE STATUS",
                 "TIME PICK UP", "TIME SEND", "PRICE");
         dogSend.forEach((dog) -> {
@@ -799,9 +796,7 @@ public class Service {
         double tongTien = 0;
         tempHis = his.stream().filter((his1) -> his1.getType().equalsIgnoreCase("SALE DOG")).collect(Collectors.toList());
         tempHis.forEach((his1) -> his1.display());
-        for (History his1 : his) {
-            tongTien += his1.getPrice();
-        }
+        tongTien = his.stream().map((his1) -> his1.getPrice()).reduce(tongTien, (accumulator, _item) -> accumulator + _item);
         System.out.println("");
         System.out.println("Money: " + tongTien);
         System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
@@ -817,9 +812,7 @@ public class Service {
         double tongTien = 0;
         tempHis = his.stream().filter((his1) -> his1.getType().equalsIgnoreCase("SEND DOG")).collect(Collectors.toList());
         tempHis.forEach((his1) -> his1.display());
-        for (History his1 : his) {
-            tongTien += his1.getPrice();
-        }
+        tongTien = his.stream().map((his1) -> his1.getPrice()).reduce(tongTien, (accumulator, _item) -> accumulator + _item);
         System.out.println("");
         System.out.println("Money: " + tongTien);
         System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
@@ -835,9 +828,7 @@ public class Service {
         double tongTien = 0;
         tempHis = his.stream().filter((his1) -> his1.getType().equalsIgnoreCase("PICK UP")).collect(Collectors.toList());
         tempHis.forEach((his1) -> his1.display());
-        for (History his1 : his) {
-            tongTien += his1.getPrice();
-        }
+        tongTien = his.stream().map((his1) -> his1.getPrice()).reduce(tongTien, (accumulator, _item) -> accumulator + _item);
         System.out.println("");
         System.out.println("Money: " + tongTien);
         System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
@@ -941,18 +932,6 @@ public class Service {
             }
             writer.close();
             //System.out.println("Save to file complete!");
-        } catch (Exception e) {
-            System.err.println("Can't save file!");
-        }
-    }
-
-    public void saveFeedBack(ArrayList<Feedback> feedback) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("dataFeedback.txt"))) {
-            for (Feedback fb : feedback) {
-                writer.write(fb + "");
-                writer.newLine();
-            }
-            writer.close();
         } catch (Exception e) {
             System.err.println("Can't save file!");
         }
@@ -1110,29 +1089,6 @@ public class Service {
         }
     }
 
-    public void readFeedback() {
-        try (BufferedReader reader = new BufferedReader(new FileReader("dataFeedback.txt"))) {
-            String line;
-            while (((line = reader.readLine()) != null)) {
-                try {
-                    String[] parts = line.split(" , ");
-                    String id = parts[0];
-                    String f = parts[1];
-                    String r = parts[2];
-                    Feedback dg = new Feedback(id, f, r);
-                    if (feedback == null) {
-                        feedback = new ArrayList<>();
-                    }
-                    feedback.add(dg);
-                } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
-                }
-            }
-            //System.out.println("Read file Feedback complete!");
-            reader.close();
-        } catch (Exception e) {
-            System.err.println("Can't read FeedBack file!");
-        }
-    }
 // --------------------------------------- phần lấy dữ liệu danh sách---------------------------------
 
     public ArrayList<DogForSale> getDogForSale() {
@@ -1154,65 +1110,122 @@ public class Service {
     public ArrayList<History> getHistory() {
         return his;
     }
-//-------------------------------------phan search-------------------------------------------
+//-------------------------------------phan search theo yêu cầu-------------------------------------------
 
-    public void searchDogSalePrice(double min, double max) {
+    public void searchDogSaleToBuy() {
+        boolean a = true;
+        int choice;
+        while (a) {
+            System.out.println("-----------------------------------------------------");
+            System.out.println("1. Search Price. \n2. Search Breed. \n3. Search Gender. \n4.Search Age. \n5. Search Origin."
+                    + " \n6. Search Color. \n7. Search Healthy. \n8. Search vaccine.\n");
+            System.out.print("Your choice: ");
+            choice = tool.iInt();
+            switch (choice) {
+                case 1:
+                    this.searchDogSalePrice();
+                    break;
+                case 2:
+                    this.searchDogSaleBreed();
+                    break;
+                case 3:
+                    this.searchDogSaleGender();
+                    break;
+                case 4:
+                    this.searchDogSaleAge();
+                    break;
+                case 5:
+                    this.searchDogSaleOrigin();
+                    break;
+                case 6:
+                    this.searchDogSaleColor();
+                    break;
+                case 7:
+                    this.searchDogSaleHealthyStatus();
+                    break;
+                case 8:
+                    this.searchDogSaleVaccineStatus();
+                    break;
+                case 0:
+                    a = false;
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    public void searchDogSalePrice() {
+        System.out.println("Enter min price: ");
+        double min = tool.iDouble();
+        System.out.println("Enter max price: ");
+        double max = tool.iDouble();
         List<DogForSale> temp = dogSale.stream().filter((dog) -> dog.getPrice() >= min && dog.getPrice() <= max).collect(Collectors.toList());
         System.out.println("List Dog Sale: ");
         System.out.println("--------------------------------------------------------------------------------------------------------------------------\n");
         System.out.printf("%-10s %-15s %-15s %-20s %-15s %-17s %-17s %-10s\n",
                 "DOG ID", "ORIGIN", "GENDER", "DOG BREED",
                 "COLOR", "HEALTH STATUS", "VACCINE STATUS", "PRICE");
-        for (DogForSale dogS : temp) {
+        temp.forEach((dogS) -> {
             dogS.display();
-        }
+        });
         System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
 
     }
 
-    public void searchDogSaleBreed(String breed) {
+    public void searchDogSaleBreed() {
+        System.out.println("Enter breed: ");
+        String breed = tool.iString();
         List<DogForSale> temp = dogSale.stream().filter((dog) -> dog.getDogBreed().equalsIgnoreCase(breed)).collect(Collectors.toList());
         System.out.println("List Dog Sale: ");
         System.out.println("--------------------------------------------------------------------------------------------------------------------------\n");
         System.out.printf("%-10s %-15s %-15s %-20s %-15s %-17s %-17s %-10s\n",
                 "DOG ID", "ORIGIN", "GENDER", "DOG BREED",
                 "COLOR", "HEALTH STATUS", "VACCINE STATUS", "PRICE");
-        for (DogForSale dogS : temp) {
+        temp.forEach((dogS) -> {
             dogS.display();
-        }
+        });
         System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
 
     }
 
-    public void searchDogSaleGender(String gender) {
+    public void searchDogSaleGender() {
+        System.out.println("Enter gender: ");
+        String gender = tool.iString();
         List<DogForSale> temp = dogSale.stream().filter((dog) -> dog.getGender().equalsIgnoreCase(gender)).collect(Collectors.toList());
         System.out.println("List Dog Sale: ");
         System.out.println("--------------------------------------------------------------------------------------------------------------------------\n");
         System.out.printf("%-10s %-15s %-15s %-20s %-15s %-17s %-17s %-10s\n",
                 "DOG ID", "ORIGIN", "GENDER", "DOG BREED",
                 "COLOR", "HEALTH STATUS", "VACCINE STATUS", "PRICE");
-        for (DogForSale dogS : temp) {
+        temp.forEach((dogS) -> {
             dogS.display();
-        }
+        });
         System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
 
     }
 
-    public void searchDogSaleAge(double min, double max) {
+    public void searchDogSaleAge() {
+        System.out.println("Enter age min: ");
+        double min = tool.iDouble();
+        System.out.println("Enter age max: ");
+        double max = tool.iDouble();
         List<DogForSale> temp = dogSale.stream().filter((dog) -> dog.getAge() >= min && dog.getAge() <= max).collect(Collectors.toList());
         System.out.println("List Dog Sale: ");
         System.out.println("--------------------------------------------------------------------------------------------------------------------------\n");
         System.out.printf("%-10s %-15s %-15s %-20s %-15s %-17s %-17s %-10s\n",
                 "DOG ID", "ORIGIN", "GENDER", "DOG BREED",
                 "COLOR", "HEALTH STATUS", "VACCINE STATUS", "PRICE");
-        for (DogForSale dogS : temp) {
+        temp.forEach((dogS) -> {
             dogS.display();
-        }
+        });
         System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
 
     }
 
-    public void searchDogSaleOrigin(String origin) {
+    public void searchDogSaleOrigin() {
+        System.out.println("Enter Origin: ");
+        String origin = tool.iString();
         List<DogForSale> temp = dogSale.stream().filter((dog) -> dog.getOrigin().equalsIgnoreCase(origin)).collect(Collectors.toList());
 
         System.out.println("List Dog Sale: ");
@@ -1220,42 +1233,48 @@ public class Service {
         System.out.printf("%-10s %-15s %-15s %-20s %-15s %-17s %-17s %-10s\n",
                 "DOG ID", "ORIGIN", "GENDER", "DOG BREED",
                 "COLOR", "HEALTH STATUS", "VACCINE STATUS", "PRICE");
-        for (DogForSale dogS : temp) {
+        temp.forEach((dogS) -> {
             dogS.display();
-        }
+        });
         System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
 
     }
 
-    public void searchDogSaleColor(String color) {
+    public void searchDogSaleColor() {
+        System.out.println("Enter color: ");
+        String color = tool.iString();
         List<DogForSale> temp = dogSale.stream().filter((dog) -> dog.getColor().equalsIgnoreCase(color)).collect(Collectors.toList());
         System.out.println("List Dog Sale: ");
         System.out.println("--------------------------------------------------------------------------------------------------------------------------\n");
         System.out.printf("%-10s %-15s %-15s %-20s %-15s %-17s %-17s %-10s\n",
                 "DOG ID", "ORIGIN", "GENDER", "DOG BREED",
                 "COLOR", "HEALTH STATUS", "VACCINE STATUS", "PRICE");
-        for (DogForSale dogS : temp) {
+        temp.forEach((dogS) -> {
             dogS.display();
-        }
+        });
         System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
 
     }
 
-    public void searchDogSaleHealthyStatus(String healthyStatus) {
+    public void searchDogSaleHealthyStatus() {
+        System.out.println("Enter Healthy: ");
+        String healthyStatus = tool.iString();
         List<DogForSale> temp = dogSale.stream().filter((dog) -> dog.getHealthyStatus().equalsIgnoreCase(healthyStatus)).collect(Collectors.toList());
         System.out.println("List Dog Sale: ");
         System.out.println("--------------------------------------------------------------------------------------------------------------------------\n");
         System.out.printf("%-10s %-15s %-15s %-20s %-15s %-17s %-17s %-10s\n",
                 "DOG ID", "ORIGIN", "GENDER", "DOG BREED",
                 "COLOR", "HEALTH STATUS", "VACCINE STATUS", "PRICE");
-        for (DogForSale dogS : temp) {
+        temp.forEach((dogS) -> {
             dogS.display();
-        }
+        });
         System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
 
     }
 
-    public void searchDogSaleVaccineStatus(String vaccineStatus) {
+    public void searchDogSaleVaccineStatus() {
+        System.out.println("Enter Vaccine: ");
+        String vaccineStatus = tool.iString();
         List<DogForSale> temp = dogSale.stream().filter((dog) -> dog.getVaccineStatus().equalsIgnoreCase(vaccineStatus)).collect(Collectors.toList());
         System.out.println("List Dog Sale: ");
         System.out.println("--------------------------------------------------------------------------------------------------------------------------\n");
@@ -1340,9 +1359,7 @@ public class Service {
             if (this.checkIdCus(cus, id)) {
                 System.out.println("Send your feedback: ");
                 String feedBack = tool.iString();
-                Feedback fb = new Feedback(id, feedBack);
-                feedback.add(fb);
-                this.saveFeedBack(feedback);
+                
                 System.out.println("Send feedback successful!");
             } else {
                 System.err.println("ID Customer does not exist!");
@@ -1355,9 +1372,7 @@ public class Service {
     public void displayAllFeedback() {
         System.out.println("-----------------------------------------------------------\n");
         System.out.printf("%-14s %-20s\n", "ID", "FeedBack");
-        feedback.forEach((fb) -> {
-            fb.displayFeedback();
-        });
+        
         System.out.println("\n-----------------------------------------------------------\n");
     }
 
@@ -1368,18 +1383,9 @@ public class Service {
             String cusID = tool.iString();
             boolean isCustomerExist = false;
 
-            for (Feedback fb : feedback) {
-                if (fb.getIdCustomer().equalsIgnoreCase(cusID)) {
-                    System.out.println("Enter your reply: ");
-                    String reply = tool.iString();
-                    fb.setReply(reply);
-                    isCustomerExist = true;
-                    break;
-                }
-            }
+            
 
             if (isCustomerExist) {
-                this.saveFeedBack(feedback);
                 System.out.println("Reply sent successfully!");
             } else {
                 System.err.println("Customer does not exist!");
@@ -1396,9 +1402,7 @@ public class Service {
             System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
             System.out.printf("%-18s %-25s %-20s\n", "ID Customer", "FeedBack", "Reply");
 
-            feedback.stream()
-                    .filter(fb -> fb.getIdCustomer().equalsIgnoreCase(idCuss))
-                    .forEach(feedback1 -> feedback1.displayreply());
+            
             System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
         } catch (Exception e) {
             System.err.println("Có lỗi phần hiển thị reply!");
@@ -1413,10 +1417,32 @@ public class Service {
 
         }
     }
+
+    public void setDayForEmployee() {
+        System.out.println("Enter ID of Employee: ");
+        String id = tool.iString();
+        if (this.checkIdEmp(emp, id)) {
+            System.out.println("Enter Day of Employee: ");
+            double day = tool.iDouble();
+            this.seachEmp(id, emp).setDayNumber(day);
+            System.out.println("Set Day Complete!");
+        }
+
+    }
 //-----------------------------------hiển thị tiền----------------------------------
 
     public void moneyFromHis() {
         try {
+            List<History> tempHis1 = his.stream().filter((his1) -> his1.getType().equalsIgnoreCase("SALE DOG")).collect(Collectors.toList());
+            double moneySale = 0;
+            moneySale = tempHis1.stream().map((his1) -> his1.getPrice()).reduce(moneySale, (accumulator, _item) -> accumulator + _item);
+            List<History> tempHis2 = his.stream().filter((his1) -> his1.getType().equalsIgnoreCase("SEND DOG")).collect(Collectors.toList());
+            double moneySend = 0;
+            moneySend = tempHis2.stream().map((his1) -> his1.getPrice()).reduce(moneySend, (accumulator, _item) -> accumulator + _item);
+            
+            System.out.println("Money Sale Dog: " + moneySale);
+            System.out.println("Moner Send Dog: "+moneySend);
+            System.out.println("Sum money: "+(moneySale+moneySend));
 
         } catch (Exception e) {
             System.err.println("co loi phan moneyFromHis()");

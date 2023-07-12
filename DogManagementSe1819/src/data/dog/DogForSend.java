@@ -46,8 +46,8 @@ public class DogForSend extends Dog {
 
     @Override
     public void display() {
-        System.out.format("%-13s %-12s %-14s %-9s %-15s %-11s %-14s %-17s %-16s %-14s %-13.1f\n",this.customerId,
-                this.getDogID(), this.getName(), this.getGender(),
+        System.out.format("%-13s %-12s %-14s %-12s %-9s %-15s %-11s %-14s %-17s %-16s %-14s %-13.1f\n",this.customerId,
+                this.getDogID(), this.getName(),this.getAge(), this.getGender(),
                 this.getDogBreed(), this.getColor(), this.getHealthyStatus(),
                 this.getVaccineStatus(), this.getTimePickUp(), this.getTimeSend(), this.getPrice());
     }

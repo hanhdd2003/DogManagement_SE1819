@@ -18,29 +18,33 @@ public class Menu {
         while (choice) {
             //---------------------------------bán chó--------------------------------           
             System.out.println("---------------------MENU---------------------");
-            System.out.println("1. Buy Dog.");
-            System.out.println("2. Send Dog.");
-            System.out.println("3. Received Dog.");
-            System.out.println("4. Send Feedback.");
-            System.out.println("5. Get reply");
+            System.out.println("1. Search Dog.");
+            System.out.println("2. Buy Dog.");
+            System.out.println("3. Send Dog.");
+            System.out.println("4. Received Dog.");
+            System.out.println("5. Send Feedback.");
+            System.out.println("6. Get reply");
             System.out.println("0. Exit");
             System.out.println("----------------------------------------------\n");
             System.out.print("Your choice: ");
             b = tool.iInt();
             switch (b) {
-                case 1:
-                    sv.saleDog();
+                case 1: 
+                    sv.searchDogSaleToBuy();
                     break;
                 case 2:
-                    sv.sendDog();
+                    sv.saleDog();
                     break;
                 case 3:
-                    sv.pickUpDog();
+                    sv.sendDog();
                     break;
                 case 4:
-                    sv.sendFeedBack();
+                    sv.pickUpDog();
                     break;
                 case 5:
+                    sv.sendFeedBack();
+                    break;
+                case 6:
                     sv.displayReply();
                     break;
                 case 0:
@@ -101,7 +105,6 @@ public class Menu {
             }
         }
     }
-/////////////////////////////////////////////////////////////////////
     public void menuManager() { // 01 là quản lý
         while (choice) {
             System.out.println("-----------------------------MENU-----------------------------");
