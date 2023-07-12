@@ -1,6 +1,5 @@
 package dogmanagementse1819;
 
-import data.Sevice.Service;
 import login.Account;
 import login.AccountManagement;
 import menu.Menu;
@@ -12,13 +11,6 @@ public class DogManagementSe1819 {
 
     public static void main(String[] args) {
 
-//        Service sv = new Service();
-//        sv.loadData();
-//        sv.displayDogSale();
-//        sv.displayDogSend();
-//        sv.displayCus();
-//        sv.displayEmp();
-//        sv.displayAllFeedback();
 //------------------------------xử lý phần đăng nhập--------------------------------
         boolean a = true;
         String choice;
