@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 
 public class Service {
 
-    
     private MyTool tool = new MyTool();
     private ArrayList<DogForSale> dogSale = new ArrayList<>();
     private ArrayList<DogForSend> dogSend = new ArrayList<>();
