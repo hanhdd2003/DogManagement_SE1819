@@ -32,7 +32,6 @@ public class AccountManagement {
                     case 2:
                         boolean loggedIn = login();
                         if (loggedIn) {
-                            System.out.println("Hoàn thành đăng nhập!");
                             a = false;
                         } else {
                             System.out.println("Login false!");

@@ -284,7 +284,6 @@ public class Service {
                     System.out.print("Input age: ");
                     int age = tool.iInt();
 
-                    System.out.print("Input phone number: ");
                     String phoneNumber = tool.iPhoneNum();
 
                     System.out.print("Input address: ");
@@ -314,7 +313,6 @@ public class Service {
                     System.out.print("Input age: ");
                     int age = tool.iInt();
 
-                    System.out.print("Input phone number: ");
                     String phoneNumber = tool.iPhoneNum();
 
                     System.out.print("Input address: ");
@@ -375,7 +373,6 @@ public class Service {
                             System.out.println("Update Age successful!");
                             break;
                         case 4:
-                            System.out.print("New PhoneNumber: ");
                             String newPhoneNumber = tool.iPhoneNum();
                             employ.setPhoneNumber(newPhoneNumber);
                             System.out.print("Update Phonenumber successful!");
@@ -460,7 +457,6 @@ public class Service {
                             System.out.println("Update Age successful!");
                             break;
                         case 4:
-                            System.out.print("New PhoneNumber: ");
                             String newPhoneNumber = tool.iPhoneNum();
                             cus1.setPhoneNumber(newPhoneNumber);
                             System.out.println("Update Phonenumber successful!");

@@ -46,14 +46,14 @@ public class MyTool {
 
         }
     }
-    
-    public String iPhoneNum(){
+
+    public String iPhoneNum() {
         while (true) {
             try {
-                
+                System.out.print("Input phone number: ");
                 c = sc.nextLine();
-                Pattern p = Pattern.compile("^[0-9]{10}$");
-                if(p.matcher(c).matches()) {
+                Pattern p = Pattern.compile("^[0][0-9]{9}$");
+                if (p.matcher(c).matches()) {
                     return c.toUpperCase();
                 }
             } catch (Exception e) {
