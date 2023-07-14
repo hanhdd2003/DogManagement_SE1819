@@ -14,9 +14,10 @@ public class DogManagementSe1819 {
 //------------------------------xử lý phần đăng nhập--------------------------------
         boolean a = true;
         String choice;
+        AccountManagement acc = new AccountManagement();
         while (a) {
-            AccountManagement.a();
-            Account accLogin = AccountManagement.getAccountLogin();
+            acc.a();
+            Account accLogin = acc.getAccountLogin();
             Menu mn = new Menu();
             if (accLogin != null) {
                 switch (accLogin.getCodeUser()) {

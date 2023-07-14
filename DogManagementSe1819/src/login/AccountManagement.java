@@ -9,10 +9,10 @@ import javax.swing.*;
 
 public class AccountManagement {
 
-    private static ArrayList<Account> listAccount = new ArrayList<Account>();
-    private static Account accLogin;
+    private  ArrayList<Account> listAccount = new ArrayList<Account>();
+    private  Account accLogin;
 
-    public static void a() {
+    public void a() {
         // lấy thông tin các tài khoản đã đăng ký
         listAccount = readAccountList("ListAccount.txt");
 
@@ -57,7 +57,7 @@ public class AccountManagement {
         }
     }
 
-    public static void signUp() {
+    public void signUp() {
         JTextField usernameField = new JTextField();
         JPasswordField passwordField = new JPasswordField();
         JPasswordField rePasswordField = new JPasswordField();
@@ -108,11 +108,11 @@ public class AccountManagement {
         }
     }
 
-    public static ArrayList<Account> getListAccount() {
+    public  ArrayList<Account> getListAccount() {
         return listAccount;
     }
 
-    public static boolean login() {
+    public  boolean login() {
         JTextField usernameField = new JTextField();
         JPasswordField passwordField = new JPasswordField();
 
@@ -149,11 +149,11 @@ public class AccountManagement {
         }
     }
 
-    public static Account getAccountLogin() {
+    public  Account getAccountLogin() {
         return accLogin;
     }
 
-    public static void saveAccountList(ArrayList<Account> listAccount) {
+    public  void saveAccountList(ArrayList<Account> listAccount) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("ListAccount.txt"))) {
             for (Account account : listAccount) {
                 writer.write(account.getUserName());
@@ -170,7 +170,7 @@ public class AccountManagement {
         }
     }
 
-    public static ArrayList<Account> readAccountList(String fileName) {
+    public  ArrayList<Account> readAccountList(String fileName) {
         ArrayList<Account> listAccount = new ArrayList<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
@@ -193,7 +193,7 @@ public class AccountManagement {
         return listAccount;
     }
 
-    public static void changePassword() {
+    public  void changePassword() {
         JTextField usernameField = new JTextField();
         JPasswordField passwordField = new JPasswordField();
         JPasswordField newPasswordField = new JPasswordField();
@@ -235,7 +235,7 @@ public class AccountManagement {
         }
     }
 
-    public static void forgotPassword() {
+    public  void forgotPassword() {
         JTextField usernameField = new JTextField();
         JTextField codeUserField = new JTextField();
 

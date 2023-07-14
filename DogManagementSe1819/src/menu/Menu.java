@@ -19,7 +19,7 @@ public class Menu {
             //---------------------------------bán chó--------------------------------           
             System.out.println("+------------------MENU-----------------------+");
             System.out.printf("| %-20s | %-20s |\n", "1. Search Dog.", "2. Buy Dog.");
-            System.out.printf("| %-20s | %-20s |\n", "3. Send Dog.", "4. Received Dog.");
+            System.out.printf("| %-20s | %-20s |\n", "3. Send Dog.", "4. Pick Up.");
             System.out.printf("| %-20s | %-20s |\n", "5. Send Feedback.", "6. Get Reply");
             System.out.printf("| %-20s |\n", "0. Exit");
             System.out.println("+---------------------------------------------+\n");
