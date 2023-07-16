@@ -1,0 +1,6 @@
+CUS1 , HANH , 12 , 0987 , HAI PHONG
+CUS2 , HUNG , 20 , 092 , BAC NINH
+CUS3 , CHUNG , 21 , 0325468 , NAM DINH
+CUS4 , DUC , 22 , 021354866 , HA NOI
+cus5 , Hoàng Thủy , 20 , 032652656 , Vĩnh Phúc
+cus6 , thương , 20 , 123657862 , thạch thất

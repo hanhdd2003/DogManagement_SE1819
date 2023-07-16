@@ -14,33 +14,34 @@ public class Menu {
         sv.loadData();
     }
 
-    public void menuCustomer() {  
+    public void menuCustomer() {
         while (choice) {
             //---------------------------------bán chó--------------------------------           
-            System.out.println("---------------------MENU---------------------");
-            System.out.println("1. Buy Dog.");
-            System.out.println("2. Send Dog.");
-            System.out.println("3. Received Dog.");
-            System.out.println("4. Send Feedback.");
-            System.out.println("5. Get reply");
-            System.out.println("0. Exit");
-            System.out.println("----------------------------------------------\n");
+            System.out.println("+------------------MENU-----------------------+");
+            System.out.printf("| %-20s | %-20s |\n", "1. Search Dog.", "2. Buy Dog.");
+            System.out.printf("| %-20s | %-20s |\n", "3. Send Dog.", "4. Pick Up.");
+            System.out.printf("| %-20s | %-20s |\n", "5. Send Feedback.", "6. Get Reply");
+            System.out.printf("| %-20s |\n", "0. Exit");
+            System.out.println("+---------------------------------------------+\n");
             System.out.print("Your choice: ");
             b = tool.iInt();
             switch (b) {
                 case 1:
-                    sv.saleDog();
+                    sv.searchDogSaleToBuy();
                     break;
                 case 2:
-                    sv.sendDog();
+                    sv.saleDog();
                     break;
                 case 3:
-                    sv.pickUpDog();
+                    sv.sendDog();
                     break;
                 case 4:
-                    sv.sendFeedBack();
+                    sv.pickUpDog();
                     break;
                 case 5:
+                    sv.sendFeedBack();
+                    break;
+                case 6:
                     sv.displayReply();
                     break;
                 case 0:
@@ -52,19 +53,14 @@ public class Menu {
 
     public void menuEmployee() {   //02 là nhân viên
         while (choice) {
-            System.out.println("------------------------------MENU------------------------------");
-            System.out.println("1. Sale Dog.");
-            System.out.println("2. Received Dog.");
-            System.out.println("3. Check Dog Sale.");
-            System.out.println("4. Check Dog Send.");
-            System.out.println("5. Check Customer.");
-            System.out.println("6. Support Customer.");
-            System.out.println("7. Fix infomation of dog sale.");
-            System.out.println("8. Fix infomation of dog send.");
-            System.out.println("9. Fix infomation of Customer.");
-            System.out.println("0. Exit");
-            System.out.println("----------------------------------------------------------------\n");
-            
+            System.out.println("+------------------------------MENU-------------------------------+");
+            System.out.printf("| %-30s | %-30s |\n","1. Sale Dog.","6. List History.");
+            System.out.printf("| %-30s | %-30s |\n","2. Received Dog.","7. Fix infomation of dog send.");
+            System.out.printf("| %-30s | %-30s |\n","3. List Dog Sale.","8. Fix infomation of Customer.");
+            System.out.printf("| %-30s | %-30s |\n","4. List Dog Send.","9. Support Customer");
+            System.out.printf("| %-30s | %-30s |\n","5. List Customer.","0. Exit");
+            System.out.println("+-----------------------------------------------------------------+\n");
+
             System.out.print("Your choice: ");
             b = tool.iInt();
             switch (b) {
@@ -87,38 +83,36 @@ public class Menu {
                     sv.displayCus();
                     break;
                 case 6:
-                    sv.reply();
+                    sv.displayHistory();
                     break;
                 case 7:
-                    sv.fixInfoDogSale();
-                    break;
-                case 8:
                     sv.fixInfoDogSend();
                     break;
-                case 9:
+                case 8:
                     sv.fixInfoCus();
+                    break;
+                case 9:
+                    sv.reply();
+                    break;
+                default:
                     break;
             }
         }
     }
-/////////////////////////////////////////////////////////////////////
+
     public void menuManager() { // 01 là quản lý
         while (choice) {
-            System.out.println("-----------------------------MENU-----------------------------");
-            System.out.println("1. Check Dog Sale.");
-            System.out.println("2. Check Dog Send.");
-            System.out.println("3. Check Customer.");
-            System.out.println("4. Check Employee.");
-            System.out.println("5. Add Dog Sale.");
-            System.out.println("6. Remove Dog Sale.");
-            System.out.println("7. Add Employee.");
-            System.out.println("8. Remove Employee.");
-            System.out.println("9. Pay Salery.");
-            System.out.println("10. Statistical.");
-            System.out.println("11. Reply Feedback.");
-            System.out.println("12. Check history. ");
-            System.out.println("0. Exit");
-            System.out.println("--------------------------------------------------------------\n");       
+            System.out.println("+--------------------------------MENU----------------------------------+");
+            System.out.printf("| %-29s |  %-35s |\n", "1. List Dog Sale.", "9. Remove Employee.");
+            System.out.printf("| %-29s |  %-35s |\n", "2. List Dog Send.", "10. Fix infomation of dog sale.");
+            System.out.printf("| %-29s |  %-35s |\n", "3. List Customer.", "11. Fix infomation of Employee.");
+            System.out.printf("| %-29s |  %-35s |\n", "4. List Employee.", "12. Reply Feedback. ");
+            System.out.printf("| %-29s |  %-35s |\n", "5. List History.", "13. Set Day For Employee");
+            System.out.printf("| %-29s |  %-35s |\n", "6. Add Dog Sale.", "14. Pay salary");
+            System.out.printf("| %-29s |  %-35s |\n", "7. Add Employee.", "15. Statics");
+            System.out.printf("| %-29s |  %-35s |\n", "8. Remove Dog Sale.", "0. Exit");
+            System.out.println("+----------------------------------------------------------------------+\n");
+
             System.out.print("Your choice: ");
             b = tool.iInt();
             switch (b) {
@@ -138,27 +132,39 @@ public class Menu {
                     sv.displayEmp();
                     break;
                 case 5:
-                    sv.inputDogSale();
+                    sv.displayHistory();
                     break;
                 case 6:
-                    sv.removeDogSale();
+                    sv.inputDogSale();
                     break;
                 case 7:
                     sv.inputEmployee();
                     break;
                 case 8:
-                    sv.removeEmployee();
+                    sv.removeDogSale();
                     break;
                 case 9:
-
+                    sv.removeEmployee();
+                    break;
                 case 10:
-                    sv.paySalary();
+                    sv.fixInfoDogSale();
                     break;
                 case 11:
-                    sv.reply();
+                    sv.fixInfoEmp();
                     break;
                 case 12:
-                    sv.displayHistory();
+                    sv.reply();
+                    break;
+                case 13:
+                    sv.setDayForEmployee();
+                    break;
+                case 14:
+                    sv.paySalary();
+                    break;
+                case 15:
+                    sv.moneyFromHis();
+                    break;
+                default:
                     break;
             }
         }

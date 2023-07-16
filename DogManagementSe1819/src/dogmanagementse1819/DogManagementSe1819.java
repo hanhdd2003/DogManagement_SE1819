@@ -1,6 +1,5 @@
 package dogmanagementse1819;
 
-import data.Sevice.Service;
 import login.Account;
 import login.AccountManagement;
 import menu.Menu;
@@ -12,16 +11,13 @@ public class DogManagementSe1819 {
 
     public static void main(String[] args) {
 
-//        Service sv = new Service();
-//        sv.loadData();
-////        sv.displayDogSale();
-//        sv.displayReply();
 //------------------------------xử lý phần đăng nhập--------------------------------
         boolean a = true;
         String choice;
+        AccountManagement acc = new AccountManagement();
         while (a) {
-            AccountManagement.a();
-            Account accLogin = AccountManagement.getAccountLogin();
+            acc.a();
+            Account accLogin = acc.getAccountLogin();
             Menu mn = new Menu();
             if (accLogin != null) {
                 switch (accLogin.getCodeUser()) {
