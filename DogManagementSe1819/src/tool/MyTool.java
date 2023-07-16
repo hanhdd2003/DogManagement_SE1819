@@ -52,7 +52,7 @@ public class MyTool {
             try {
                 
                 c = sc.nextLine();
-                Pattern p = Pattern.compile("^[0-9]{10}$");
+                Pattern p = Pattern.compile("^[0][0-9]{9}$");
                 if(p.matcher(c).matches()) {
                     return c.toUpperCase();
                 }

@@ -8,17 +8,27 @@ public class History {
     private String idEmp; // thêm số tiền giao dịch
     private double price;
     private String currentTime;
+    private String name;
 
     public History() {
     }
 
-    public History(int type, String idCus, String idDog, String idEmp, double price, String currentTime) {
+    public History(int type, String idCus, String idDog, String idEmp, double price, String currentTime, String name) {
         this.type = type;
         this.idCus = idCus;
         this.idDog = idDog;
         this.idEmp = idEmp;
         this.price = price;
         this.currentTime = currentTime;
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public double getPrice() {
@@ -64,12 +74,12 @@ public class History {
     }
 
     public void display() {
-        System.out.printf("%-17s %-15s %-14s %-12s %-15s %-15s\n", this.getType(), price, idCus, idDog, idEmp, currentTime);
+        System.out.printf("%-17s %-15s %-14s %-12s %-15s %-15s -15s\n", this.getType(), price, idCus, idDog, idEmp, currentTime, name);
     }
 
     @Override
     public String toString() {
-        return this.type +" , " + this.idCus + " , " + this.idDog + " , " + this.idEmp + " , " + this.price +  " , " + this.currentTime;
+        return this.type + " , " + this.idCus + " , " + this.idDog + " , " + this.idEmp + " , " + this.price + " , " + this.currentTime + " , " + this.name;
     }
 
 }

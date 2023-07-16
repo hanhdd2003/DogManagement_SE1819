@@ -79,7 +79,7 @@ public class Service {
                         LocalDateTime now = LocalDateTime.now();
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                         String formattedDateTime = now.format(formatter);
-                        History his1 = new History(1, idCus, idDog, idEmp, searchDogSale(idDog, dogSale).getPrice(), formattedDateTime);
+                        History his1 = new History(1, idCus, idDog, idEmp, searchDogSale(idDog, dogSale).getPrice(), formattedDateTime,searchCus(idCus, cus).getName());
                         his.add(his1);
                         //tang bonus cho nhan vien
                         if (this.seachEmp(idEmp, emp) != null && this.searchDogSale(idDog, dogSale) != null) {
@@ -163,7 +163,7 @@ public class Service {
                         LocalDateTime now = LocalDateTime.now();
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                         String formattedDateTime = now.format(formatter);
-                        History hisTemp = new History(2, idCus, idSend, idEmp, price, formattedDateTime);
+                        History hisTemp = new History(2, idCus, idSend, idEmp, price, formattedDateTime,searchCus(idCus, cus).getName());
                         his.add(hisTemp);
                         System.out.println("Send successfully !");
                         a = false;
@@ -207,7 +207,7 @@ public class Service {
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                         String formattedDateTime = now.format(formatter);
 
-                        History temp = new History(3, idCus, idSend, this.seachHis(idCus).getIdEmp(), this.searchDogSend(idSend, dogSend).getPrice(), formattedDateTime);
+                        History temp = new History(3, idCus, idSend, this.seachHis(idCus).getIdEmp(), this.searchDogSend(idSend, dogSend).getPrice(), formattedDateTime,searchCus(idCus, cus).getName());
                         his.add(temp);
                         dogSend.remove(this.searchDogSend(idSend, dogSend));
 
@@ -793,8 +793,8 @@ public class Service {
         //("%10s %10s %12s %8s %12s %15s\n", idHis, price, idCus, idDog, idEmp, currentTime)
         System.out.println("List History: ");
         System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
-        System.out.printf("%-17s %-15s %-14s %-12s %-15s %-15s \n",
-                "HISTORY TYPE", "PRICE", "CUSTOMER ID", "DOG ID", "EMPLOYEE ID", "TIME");
+        System.out.printf("%-17s %-15s %-14s %-12s %-15s %-15s %-15s\n",
+                "HISTORY TYPE", "PRICE", "CUSTOMER ID", "DOG ID", "EMPLOYEE ID", "TIME","NAME");
         List<History> tempHis;
         double tongTien = 0;
         tempHis = his.stream().filter((his1) -> his1.getType().equalsIgnoreCase("SALE DOG")).collect(Collectors.toList());
@@ -811,8 +811,8 @@ public class Service {
         //("%10s %10s %12s %8s %12s %15s\n", idHis, price, idCus, idDog, idEmp, currentTime)
         System.out.println("List History: ");
         System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
-        System.out.printf("%-17s %-15s %-14s %-12s %-15s %-15s \n",
-                "HISTORY TYPE", "PRICE", "CUSTOMER ID", "DOG ID", "EMPLOYEE ID", "TIME");
+        System.out.printf("%-17s %-15s %-14s %-14s %-12s %-15s %-15s %-15s\n",
+                "HISTORY TYPE", "PRICE", "CUSTOMER ID", "DOG ID", "EMPLOYEE ID", "TIME","NAME");
         List<History> tempHis;
         double tongTien = 0;
         tempHis = his.stream().filter((his1) -> his1.getType().equalsIgnoreCase("SEND DOG")).collect(Collectors.toList());
@@ -829,8 +829,8 @@ public class Service {
         //("%10s %10s %12s %8s %12s %15s\n", idHis, price, idCus, idDog, idEmp, currentTime)
         System.out.println("List History: ");
         System.out.println("\n--------------------------------------------------------------------------------------------------------------------------\n");
-        System.out.printf("%-17s %-15s %-14s %-12s %-15s %-15s \n",
-                "HISTORY TYPE", "PRICE", "CUSTOMER ID", "DOG ID", "EMPLOYEE ID", "TIME");
+        System.out.printf("%-17s %-15s %-14s %-12s %-15s %-15s %-15s\n",
+                "HISTORY TYPE", "PRICE", "CUSTOMER ID", "DOG ID", "EMPLOYEE ID", "TIME","NAME");
         List<History> tempHis;
         double tongTien = 0;
         tempHis = his.stream().filter((his1) -> his1.getType().equalsIgnoreCase("PICK UP")).collect(Collectors.toList());
@@ -1032,7 +1032,8 @@ public class Service {
                     String idEmp = parts[3];
                     double price = Double.parseDouble(parts[4]);
                     String currentTime = parts[5];
-                    History history = new History(type, idCus, idDog, idEmp, price, currentTime);
+                    String name = parts[6];
+                    History history = new History(type, idCus, idDog, idEmp, price, currentTime,name);
                     if (his == null) {
                         his = new ArrayList<>();
                     }
